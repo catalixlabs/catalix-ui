@@ -1,9 +1,10 @@
 {
-  "name": "my-turborepo",
-  "description": "A barebones Turborepo example for working with Task Graphs.",
+  "name": "flui-ui",
+  "description": "Fluid UI is a headless, configuration-driven UI component library designed for maximum flexibility. Instead of locking you into predefined styles, Fluid UI gives you full control over the code",
   "private": true,
   "packageManager": "pnpm@8.15.6",
   "devDependencies": {
+    "prettier": "3.6.2",
     "turbo": "^2.5.6"
   }
 }
