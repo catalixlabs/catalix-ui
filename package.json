@@ -3,7 +3,17 @@
   "description": "Fluid UI is a headless, configuration-driven UI component library designed for maximum flexibility. Instead of locking you into predefined styles, Fluid UI gives you full control over the code",
   "private": true,
   "packageManager": "pnpm@8.15.6",
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "commit": "commit"
+  },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/prompt-cli": "^19.8.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
     "prettier": "3.6.2",
     "turbo": "^2.5.6"
   }
