@@ -1,3 +1,6 @@
 {
-  "*.{js,ts,jsx,tsx,css,scss,mdx}": ["prettier --write"]
+  "apps/docs/**/*.{js,jsx,ts,tsx}": [
+    "pnpm -C apps/docs eslint --fix --max-warnings=0"
+  ],
+  "*": ["prettier --write --ignore-unknown"]
 }

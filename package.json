@@ -6,7 +6,14 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "commit": "commit"
+    "commit": "commit",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format:check": "turbo run format:check",
+    "format:write": "turbo run format:write",
+    "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
