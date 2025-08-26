@@ -12,26 +12,39 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+<<<<<<< HEAD
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: latest
 
+=======
+>>>>>>> a1c2738 (ci: :construction_worker: add commitlint workflow (github ci))
       - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
+<<<<<<< HEAD
           cache: 'pnpm'
 
       - name: Install commitlint
         run: pnpm add -D -w @commitlint/cli @commitlint/config-conventional
 
+=======
+          cache: npm
+      - name: Install commitlint
+        run: npm install -D @commitlint/cli @commitlint/config-conventional
+>>>>>>> a1c2738 (ci: :construction_worker: add commitlint workflow (github ci))
       - name: Print versions
         run: |
           git --version
           node --version
+<<<<<<< HEAD
           pnpm --version
+=======
+          npm --version
+>>>>>>> a1c2738 (ci: :construction_worker: add commitlint workflow (github ci))
           npx commitlint --version
 
       - name: Validate current commit (last commit) with commitlint
