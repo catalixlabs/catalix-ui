@@ -25,7 +25,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install commitlint
-        run: pnpm add -D @commitlint/cli @commitlint/config-conventional
+        run: pnpm add -D -w @commitlint/cli @commitlint/config-conventional
 
       - name: Print versions
         run: |
