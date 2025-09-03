@@ -42,49 +42,6 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
-      '@foundry/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@tailwindcss/postcss':
-        specifier: ^4
-        version: 4.1.12
-      '@types/node':
-        specifier: ^20
-        version: 20.19.11
-      '@types/react':
-        specifier: ^19
-        version: 19.1.12
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.1.9(@types/react@19.1.12)
-      eslint:
-        specifier: ^9
-        version: 9.34.0
-      eslint-config-next:
-        specifier: 15.5.2
-        version: 15.5.2(eslint@9.34.0)(typescript@5.9.2)
-      tailwindcss:
-        specifier: ^4
-        version: 4.1.12
-      typescript:
-        specifier: ^5
-        version: 5.9.2
-
-  apps/demo2:
-    dependencies:
-      next:
-        specifier: 15.5.2
-        version: 15.5.2(react-dom@19.1.0)(react@19.1.0)
-      react:
-        specifier: 19.1.0
-        version: 19.1.0
-      react-dom:
-        specifier: 19.1.0
-        version: 19.1.0(react@19.1.0)
-    devDependencies:
-      '@eslint/eslintrc':
-        specifier: ^3
-        version: 3.3.1
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.12
@@ -127,6 +84,9 @@ importers:
       ora:
         specifier: ^8.2.0
         version: 8.2.0
+      prompts:
+        specifier: ^2.4.2
+        version: 2.4.2
       zod:
         specifier: ^4.1.5
         version: 4.1.5
@@ -134,6 +94,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
+      '@types/prompts':
+        specifier: ^2.4.9
+        version: 2.4.9
       bumpp:
         specifier: ^10.1.0
         version: 10.2.3
@@ -1618,6 +1581,13 @@ packages:
     resolution: {integrity: sha512-uug3FEEGv0r+jrecvUUpbY8lLisvIjg6AAic6a2bSP5OEOLeJsDSnvhCDov7ipFFMXS3orMpzlmi0ZcuGkBbow==}
     dependencies:
       undici-types: 6.21.0
+    dev: true
+
+  /@types/prompts@2.4.9:
+    resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
+    dependencies:
+      '@types/node': 20.19.11
+      kleur: 3.0.3
     dev: true
 
   /@types/react-dom@19.1.9(@types/react@19.1.12):
@@ -3944,6 +3914,10 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
+  /kleur@3.0.3:
+    resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
+    engines: {node: '>=6'}
+
   /language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
     dev: true
@@ -4582,6 +4556,14 @@ packages:
     hasBin: true
     dev: true
 
+  /prompts@2.4.2:
+    resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
+    engines: {node: '>= 6'}
+    dependencies:
+      kleur: 3.0.3
+      sisteransi: 1.0.5
+    dev: false
+
   /prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
     dependencies:
@@ -5022,6 +5004,10 @@ packages:
       is-arrayish: 0.3.2
     dev: false
     optional: true
+
+  /sisteransi@1.0.5:
+    resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
+    dev: false
 
   /source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
