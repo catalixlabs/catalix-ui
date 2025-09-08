@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { RootProvider as FumaProvider } from "fumadocs-ui/provider";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
+import fonts from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -10,13 +11,13 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body>
+    <html lang="en" suppressHydrationWarning={true} className={fonts}>
+      <body className="font-geist text-base font-normal bg-background text-foreground">
         <ThemeProvider
           enableSystem={true}
-          disableTransitionOnChange={true}
           defaultTheme="system"
-          attribute="class"
+          attribute={["class", "data-theme"]}
+          disableTransitionOnChange={true}
         >
           <FumaProvider theme={{ enabled: false }}>{children}</FumaProvider>
         </ThemeProvider>
