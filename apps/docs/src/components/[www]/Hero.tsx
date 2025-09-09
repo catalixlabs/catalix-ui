@@ -8,14 +8,13 @@ export default function Hero() {
         <div className="mx-auto w-full max-w-6xl px-4 py-44">
           <div className="flex flex-col items-center justify-center">
             <h2 className="mx-2 max-w-5xl text-balance text-center text-4xl tracking-tighter sm:text-5xl lg:text-6xl xl:text-6xl">
-              From design to code, own every line of your interface.{" "}
+              From design to code, own every line of your interface.
             </h2>
-            <p className="mb-6 mt-4 max-w-lg text-center text-base text-zinc-600 dark:text-zinc-300">
+            <p className="mb-6 mt-4 max-w-lg text-center text-base">
               Foundry UI gives you accessible React components that you fully
-              own and control. Built on top of Radix UI for rock-solid
-              accessibility and styled with Tailwind CSS for sleek, modern
-              design, every component is easy to copy, customize, and make
-              entirely yours.
+              own and control. Built on top of Radix UI for accessibility and
+              styled with Tailwind CSS for sleek, modern design, every component
+              is easy to copy, customize, and make entirely yours.
             </p>
             <div className="flex items-center gap-2">
               <Link
