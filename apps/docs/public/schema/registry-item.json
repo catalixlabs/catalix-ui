@@ -4,7 +4,7 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "The name of the item. This is used to identify the item in the registry. It should be unique for your registry."
+      "description": "Unique identifier for the item in the registry."
     },
     "type": {
       "type": "string",
@@ -12,62 +12,53 @@
         "registry:lib",
         "registry:block",
         "registry:component",
-        "registry:ui",
+        "registry:core",
         "registry:hook",
-        "registry:theme",
         "registry:page",
-        "registry:file",
-        "registry:style",
-        "registry:item"
+        "registry:file"
       ],
-      "description": "The type of the item. This is used to determine the type and target path of the item when resolved for a project."
-    },
-    "description": {
-      "type": "string",
-      "description": "The description of the item. This is used to provide a brief overview of the item."
+      "description": "Type of registry item."
     },
     "title": {
       "type": "string",
-      "description": "The human-readable title for your registry item. Keep it short and descriptive."
+      "description": "Human-readable title. Keep short and descriptive."
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief explanation of what this item does."
     },
     "author": {
       "type": "string",
-      "description": "The author of the item. Recommended format: username <url>"
+      "description": "Author of the item. Recommended format: username <url>."
     },
     "dependencies": {
       "type": "array",
-      "description": "An array of NPM dependencies required by the registry item.",
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" },
+      "description": "NPM dependencies required by this item."
     },
     "devDependencies": {
       "type": "array",
-      "description": "An array of NPM dev dependencies required by the registry item.",
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" },
+      "description": "NPM devDependencies required by this item."
     },
     "registryDependencies": {
       "type": "array",
-      "description": "An array of registry items that this item depends on. Use the name of the item to reference foundry ui components and urls to reference other registries.",
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" },
+      "description": "Other Foundry registry items or external registry URLs this depends on."
     },
     "files": {
       "type": "array",
-      "description": "The main payload of the registry item. This is an array of files that are part of the registry item. Each file is an object with a path, content, type, and target.",
+      "description": "Files delivered by this registry item.",
       "items": {
         "type": "object",
         "properties": {
           "path": {
             "type": "string",
-            "description": "The path to the file relative to the registry root."
+            "description": "Path to the file relative to the registry root."
           },
           "content": {
             "type": "string",
-            "description": "The content of the file."
+            "description": "The file contents (inline as string)."
           },
           "type": {
             "type": "string",
@@ -75,141 +66,32 @@
               "registry:lib",
               "registry:block",
               "registry:component",
-              "registry:ui",
+              "registry:core",
               "registry:hook",
-              "registry:theme",
               "registry:page",
-              "registry:file",
-              "registry:style",
-              "registry:item"
+              "registry:file"
             ],
-            "description": "The type of the file. This is used to determine the type of the file when resolved for a project."
+            "description": "Type of file — matches registry item types."
           },
           "target": {
             "type": "string",
-            "description": "The target path of the file. This is the path to the file in the project."
+            "description": "Where in the project this file should be placed."
           }
         },
-        "if": {
-          "properties": {
-            "type": {
-              "enum": ["registry:file", "registry:page"]
-            }
-          }
-        },
-        "then": {
-          "required": ["path", "type", "target"]
-        },
-        "else": {
-          "required": ["path", "type"]
-        }
+        "required": ["path", "type"],
+        "additionalProperties": false
       }
-    },
-    "tailwind": {
-      "type": "object",
-      "description": "The tailwind configuration for the registry item. This is an object with a config property. Use cssVars for Tailwind v4 projects.",
-      "properties": {
-        "config": {
-          "type": "object",
-          "properties": {
-            "content": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "theme": {
-              "type": "object",
-              "additionalProperties": true
-            },
-            "plugins": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
-    "cssVars": {
-      "type": "object",
-      "description": "The css variables for the registry item. This will be merged with the project's css variables.",
-      "properties": {
-        "theme": {
-          "type": "object",
-          "description": "CSS variables for the @theme directive. For Tailwind v4 projects only. Use tailwind for older projects.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "light": {
-          "type": "object",
-          "description": "CSS variables for the light theme.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "dark": {
-          "type": "object",
-          "description": "CSS variables for the dark theme.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "css": {
-      "type": "object",
-      "description": "CSS definitions to be added to the project's CSS file. Supports at-rules, selectors, nested rules, utilities, layers, and more.",
-      "additionalProperties": {
-        "$ref": "#/definitions/cssValue"
-      }
-    },
-    "envVars": {
-      "type": "object",
-      "description": "Environment variables required by the registry item. Key-value pairs that will be added to the project's .env file.",
-      "additionalProperties": {
-        "type": "string"
-      }
-    },
-    "meta": {
-      "type": "object",
-      "description": "Additional metadata for the registry item. This is an object with any key value pairs.",
-      "additionalProperties": true
     },
     "docs": {
       "type": "string",
-      "description": "The documentation for the registry item. This is a markdown string."
+      "description": "Optional documentation in markdown."
     },
     "categories": {
       "type": "array",
-      "items": {
-        "type": "string",
-        "description": "The categories of the registry item. This is an array of strings."
-      }
-    },
-    "extends": {
-      "type": "string",
-      "description": "The name of the registry item to extend. This is used to extend the base foundry ui style. Set to none to start fresh. This is available for registry:style items only."
+      "items": { "type": "string" },
+      "description": "Categories/tags for organizing the item."
     }
   },
-  "required": ["name", "type"],
-  "definitions": {
-    "cssValue": {
-      "oneOf": [
-        {
-          "type": "string",
-          "description": "CSS property value or direct CSS string"
-        },
-        {
-          "type": "object",
-          "description": "Nested CSS properties, selectors, or at-rules. Empty objects are allowed for at-rules with no body.",
-          "additionalProperties": {
-            "$ref": "#/definitions/cssValue"
-          }
-        }
-      ]
-    }
-  }
+  "required": ["name", "type", "files"],
+  "additionalProperties": false
 }

@@ -1,22 +1,27 @@
 {
   "$schema": "https://json-schema.org/draft-07/schema#",
-  "description": "A foundry UI registry of components, hooks, pages, etc.",
+  "title": "Foundry Registry",
+  "description": "Top-level registry file containing all registry items for Foundry UI",
   "type": "object",
   "properties": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name of the registry (e.g., your project or organization name)."
     },
     "homepage": {
-      "type": "string"
+      "type": "string",
+      "description": "URL for the registry homepage/documentation."
     },
     "items": {
       "type": "array",
+      "description": "Array of all registry items.",
       "items": {
         "$ref": "https://foundry-ui.vercel.app/schema/registry-item.json"
-      }
+      },
+      "minItems": 1,
+      "uniqueItems": true
     }
   },
   "required": ["name", "homepage", "items"],
-  "uniqueItems": true,
-  "minItems": 1
+  "additionalProperties": false
 }
