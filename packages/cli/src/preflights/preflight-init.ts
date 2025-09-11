@@ -1,51 +1,46 @@
-import path from "path";
+import path from "pathe";
 import chalk from "chalk";
 import fs from "fs-extra";
-import ora from "ora";
-import * as schema from "@/utils/schema";
+import { withSpinner } from "@/utils/spinner";
 
-export default async function preflightInit(options: schema.InitOptionsSchema) {
-  if (!(await fs.pathExists(options.cwd))) {
-    console.log(chalk.red(`Directory does not exist: ${options.cwd}`));
-    process.exit(1);
-  }
+export async function preflightInit(cwd: string) {
+  // Step 1: check directory exists
+  await withSpinner("Checking working directory", async () => {
+    const exists = await fs.pathExists(cwd);
+    if (!exists) {
+      const CWD = chalk.cyan.underline(path.resolve(cwd));
+      throw new Error(`Make sure directory exists: ${CWD}`);
+    }
+  });
 
-  const packageJsonPath = path.join(options.cwd, "package.json");
-  if (!(await fs.pathExists(packageJsonPath))) {
-    const CWD = chalk.cyan(options.cwd);
-    const FILE = chalk.cyan("components.json");
-    const CMD = chalk.green("npx create-next-app@latest my-app --yes");
-    console.log("");
-    console.log(`The path ${CWD} doesn't contain a ${FILE} file.`);
-    console.log(`Strat a new next.js app running ${CMD} and try again`);
-    console.log("");
-    process.exit(1);
-  }
+  // Step 2: check package.json exists
+  const packageJsonPath = await withSpinner(
+    "Checking package.json",
+    async () => {
+      const filePath = path.join(cwd, "package.json");
+      const exists = await fs.pathExists(filePath);
+      if (!exists) {
+        throw new Error(`${chalk.cyan("package.json")} not found`);
+      }
+      return filePath;
+    }
+  );
 
-  // todo: if no package.json found, prompt to create a next app from cli
+  // Step 3: check components.json doesn't exist
+  const componentsJsonPath = await withSpinner(
+    "Checking components.json",
+    async () => {
+      const filePath = path.join(cwd, "components.json");
+      if (await fs.pathExists(filePath)) {
+        const CWD = chalk.cyan.underline(path.resolve(cwd));
+        throw new Error(
+          `A ${chalk.cyan("components.json")} already exists at ${CWD}\n` +
+            `Please remove it to start over.`
+        );
+      }
+      return filePath;
+    }
+  );
 
-  const projectSpinner = ora("Preflight checks").start();
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  const componentsJsonPath = path.join(options.cwd, "components.json");
-
-  if (await fs.pathExists(componentsJsonPath)) {
-    projectSpinner.fail();
-    const CWD = chalk.cyan(options.cwd);
-    const FILE = chalk.cyan("components.json");
-    const CMD = chalk.cyan("init");
-    console.log("");
-    console.log(chalk.red(`A ${FILE} file already exists at ${CWD}.`));
-    console.log(chalk.red(`To start over, remove ${FILE} and re-run ${CMD}.`));
-    console.log("");
-    process.exit(1);
-  }
-
-  projectSpinner.succeed();
-
-  return {
-    cwd: options.cwd,
-    componentsJsonPath,
-    packageJsonPath,
-  };
+  return { cwd, packageJsonPath, componentsJsonPath };
 }
