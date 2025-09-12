@@ -4,6 +4,7 @@ import fs from "fs-extra";
 import z from "zod";
 import { preflightInit } from "@/preflights/preflight-init";
 import { withSpinner } from "@/utils/spinner";
+import { handleError } from "@/utils/handle-error";
 
 const optionsSchema = z.object({
   cwd: z.string(),
@@ -33,19 +34,7 @@ async function runInit(options: OptionsSchema) {
     console.log(chalk.green("Success! Project initialized"));
     console.log("You may now add components.");
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.log(chalk.red("Zod validation error"));
-      for (const issue of error.issues) {
-        console.log(`- ${chalk.cyan(issue.path.join("."))}: ${issue.message}`);
-        return;
-      }
-    }
-    if (error instanceof Error) {
-      console.error(chalk.red(error.message));
-      return;
-    }
-    console.error(error);
-    process.exit(1);
+    handleError(error);
   }
 }
 
