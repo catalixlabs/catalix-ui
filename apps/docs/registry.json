@@ -1,0 +1,28 @@
+{
+  "name": "Foundry UI",
+  "homepage": "https://foundry-ui.vercel.app",
+  "items": [
+    {
+      "name": "button",
+      "type": "registry:core",
+      "files": [
+        {
+          "path": "src/registry/react/core/button.tsx",
+          "type": "registry:core",
+          "target": "components/ui/button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:core",
+      "files": [
+        {
+          "path": "src/registry/react/core/input.tsx",
+          "type": "registry:core",
+          "target": "components/ui/input.tsx"
+        }
+      ]
+    }
+  ]
+}
