@@ -1,0 +1,12 @@
+{
+  "name": "button",
+  "type": "registry:core",
+  "files": [
+    {
+      "path": "src/registry/react/core/button.tsx",
+      "content": "import * as React from \"react\";\nimport { tv, type VariantProps } from \"tailwind-variants\";\n\nexport type ButtonVarinat = VariantProps<typeof buttonVariant>;\nexport interface ButtonProps\n  extends React.ComponentProps<\"button\">,\n    ButtonVarinat {}\n\nexport default function Button({ variant, className, ...props }: ButtonProps) {\n  return (\n    <button className={buttonVariant({ variant, className })} {...props} />\n  );\n}\n\nexport const buttonVariant = tv({\n  base: [\n    \"cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0\",\n  ],\n  variants: {\n    variant: {\n      default:\n        \"shadow-sm shadow-black/20 bg-primary text-primary-foreground hover:bg-primary/90\",\n      destructive:\n        \"bg-destructive text-destructive-foreground shadow-md hover:bg-destructive/90\",\n      outline:\n        \"shadow-sm shadow-black/15 border border-transparent bg-background ring-1 ring-foreground/10 duration-200 hover:bg-muted/50 dark:ring-foreground/15 dark:hover:bg-muted/50\",\n      secondary:\n        \"bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80\",\n      ghost: \"hover:bg-accent hover:text-accent-foreground\",\n      link: \"text-primary underline-offset-4 hover:underline\",\n    },\n  },\n  defaultVariants: {\n    variant: \"default\",\n  },\n});\n",
+      "type": "registry:core",
+      "target": "components/ui/button.tsx"
+    }
+  ]
+}
