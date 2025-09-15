@@ -3,7 +3,7 @@ import chalk from "chalk";
 import { Command } from "commander";
 import fs from "fs-extra";
 import { preflightBuild } from "@/preflights/preflight-build";
-import { buildOptionsSchema, type BuildOptions } from "@/types/build";
+import { buildOptionsSchema, type BuildOptionsSchema } from "@/types/command";
 import { registryItemSchema, registrySchema } from "@/types/registry";
 import { handleError } from "@/utils/handle-error";
 import { withSpinner } from "@/utils/spinner";
@@ -22,7 +22,7 @@ const build = new Command()
     "the working directory. defaults to the current directory.",
     process.cwd()
   )
-  .action(async (registry: string, options: BuildOptions) => {
+  .action(async (registry: string, options: BuildOptionsSchema) => {
     try {
       const parsed = buildOptionsSchema.parse({
         cwd: path.resolve(options.cwd),
@@ -36,6 +36,7 @@ const build = new Command()
       const result = registrySchema.parse(content);
 
       await withSpinner("Building registry", async () => {
+        await fs.emptyDir(parsed.output);
         for (const registryItem of result.items) {
           if (!registryItem.files) continue;
 
@@ -57,6 +58,12 @@ const build = new Command()
           await fs.writeFile(
             path.resolve(parsed.output, `${parsedRegistryItem.data.name}.json`),
             JSON.stringify(parsedRegistryItem.data, null, 2)
+          );
+
+          // copy the registry.json file to the output directory as index.json
+          await fs.copyFile(
+            registryFile,
+            path.resolve(parsed.output, "index.json")
           );
         }
       });

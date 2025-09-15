@@ -1,10 +1,10 @@
 import path from "pathe";
 import fs from "fs-extra";
 import chalk from "chalk";
-import { type BuildOptions } from "@/types/build";
+import { type BuildOptionsSchema } from "@/types/command";
 import { withSpinner } from "@/utils/spinner";
 
-export async function preflightBuild(options: BuildOptions) {
+export async function preflightBuild(options: BuildOptionsSchema) {
   // Step 1: check working directory
   await withSpinner("Checking working directory", async () => {
     const exists = await fs.pathExists(options.cwd);
