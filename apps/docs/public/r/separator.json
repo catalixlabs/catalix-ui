@@ -1,0 +1,24 @@
+{
+  "name": "separator",
+  "type": "registry:core",
+  "dependencies": [
+    "@radix-ui/react-separator",
+    "tailwind-variants",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "src/registry/react/core/separator.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as SeparatorPrimitive from \"@radix-ui/react-separator\";\nimport { tv } from \"tailwind-variants\";\nimport { cn } from \"@/registry/react/utils/cn\";\n\nexport default function Separator({\n  className,\n  orientation = \"horizontal\",\n  decorative = true,\n  ...props\n}: React.ComponentProps<typeof SeparatorPrimitive.Root>) {\n  return (\n    <SeparatorPrimitive.Root\n      data-slot=\"separator\"\n      decorative={decorative}\n      orientation={orientation}\n      className={cn(separtorVariants({ orientation, className }))}\n      {...props}\n    />\n  );\n}\n\nexport const separtorVariants = tv({\n  base: \"bg-border shrink-0 pointer-events-none\",\n  variants: {\n    orientation: {\n      horizontal: \"h-px w-full\",\n      vertical: \"h-full w-px\",\n    },\n  },\n});\n",
+      "type": "registry:core",
+      "target": "components/core/separator.tsx"
+    },
+    {
+      "path": "src/registry/react/utils/cn.ts",
+      "content": "import { type ClassValue, clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nexport const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));\n",
+      "type": "registry:file",
+      "target": "lib/utils/cn.ts"
+    }
+  ]
+}
