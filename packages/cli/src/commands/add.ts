@@ -84,8 +84,11 @@ const addComponents = async (
   options: z.infer<typeof addOptionsSchema>,
   preflightResult: { cwd: string; componentsJsonPath: string }
 ) => {
-  const { cwd } = preflightResult;
+  const { cwd, componentsJsonPath } = preflightResult;
   const selected = options.components ?? [];
+
+  // Read components.json config
+  const config = await fs.readJson(componentsJsonPath);
 
   for (const name of selected) {
     const item = await getRegistryItem(name);
@@ -100,7 +103,30 @@ const addComponents = async (
       const targetRelative = file.target ?? file.path;
       if (!targetRelative) continue;
 
-      const targetPath = path.join(cwd, targetRelative);
+      // Use config paths if available, otherwise fallback to target
+      let finalPath = targetRelative;
+      if (config.paths) {
+        if (targetRelative.includes("components/ui/")) {
+          finalPath = targetRelative.replace(
+            "components/ui/",
+            `${config.paths.ui}/`
+          );
+        } else if (targetRelative.includes("lib/utils/")) {
+          finalPath = targetRelative.replace(
+            "lib/utils/",
+            `${config.paths.utils}/`
+          );
+        } else if (targetRelative.includes("components/")) {
+          finalPath = targetRelative.replace(
+            "components/",
+            `${config.paths.components}/`
+          );
+        } else if (targetRelative.includes("lib/")) {
+          finalPath = targetRelative.replace("lib/", `${config.paths.lib}/`);
+        }
+      }
+
+      const targetPath = path.join(cwd, finalPath);
       const targetDir = path.dirname(targetPath);
       const exists = await fs.pathExists(targetPath);
       if (exists && !options.overwrite) {
