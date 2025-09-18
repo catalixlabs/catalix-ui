@@ -1,18 +1,18 @@
 import ora, { type Ora, type Options as OraOptions } from "ora";
 
-export async function withSpinner<T>(
+export const withSpinner = async <T>(
   text: string,
-  task: () => Promise<T>,
+  task: (spinner: Ora) => Promise<T>,
   options?: OraOptions
-): Promise<T> {
+): Promise<T> => {
   const spinner: Ora = ora({ text, ...options }).start();
 
   try {
-    const result = await task();
+    const result = await task(spinner);
     spinner.succeed();
     return result;
   } catch (e) {
     spinner.fail();
     throw e;
   }
-}
+};

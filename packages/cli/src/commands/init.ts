@@ -1,20 +1,11 @@
 import { Command } from "commander";
 import chalk from "chalk";
 import fs from "fs-extra";
-import z from "zod";
-import { preflightInit } from "@/preflights/preflight-init";
+import path from "pathe";
 import { withSpinner } from "@/utils/spinner";
 import { handleError } from "@/utils/handle-error";
-import path from "pathe";
-import { getRegistryItem } from "@/registry/api";
-import { registryItemSchema } from "@/types/registry";
-import { addDependency } from "nypm";
-
-const optionsSchema = z.object({
-  cwd: z.string(),
-});
-
-type OptionsSchema = z.infer<typeof optionsSchema>;
+import { initOptionsSchema, type InitOptionsSchema } from "@/types/command";
+import { getProjectInfo } from "@/utils/project-info";
 
 const init = new Command()
   .name("init")
@@ -26,38 +17,67 @@ const init = new Command()
   )
   .action((options) => runInit(options));
 
-async function runInit(options: OptionsSchema) {
+async function runInit(options: InitOptionsSchema) {
   try {
-    const { cwd } = optionsSchema.parse(options);
-    const { componentsJsonPath } = await preflightInit(cwd);
-
-    await withSpinner("Writing components.json", async () => {
-      await fs.writeJson(componentsJsonPath, {}, { spaces: 2 });
+    const { cwd } = initOptionsSchema.parse({
+      ...options,
+      cwd: path.resolve(options.cwd),
     });
 
-    await withSpinner("Installing base utilities", async () => {
-      const item = await getRegistryItem("cn");
-      const parsed = registryItemSchema.safeParse(item);
-      if (!parsed.success) return;
+    const projectInfo = await getProjectInfo(cwd);
 
-      for (const file of parsed.data.files ?? []) {
-        const targetRelative = file.target ?? file.path;
-        if (!targetRelative) continue;
-        const outPath = path.join(cwd, targetRelative);
-        await fs.ensureDir(path.dirname(outPath));
-        await fs.writeFile(outPath, file.content ?? "", "utf-8");
-      }
-
-      for (const dep of parsed.data.dependencies ?? []) {
-        await addDependency(dep, { cwd });
-      }
-      for (const dep of parsed.data.devDependencies ?? []) {
-        await addDependency(dep, { cwd, dev: true } as any);
-      }
+    await withSpinner("Checking current working directory.", async () => {
+      const exists = await fs.pathExists(cwd);
+      const CWD = chalk.cyan.underline(cwd);
+      if (!exists) throw new Error(`Make sure directory exists: ${CWD}.`);
     });
 
-    console.log(chalk.green("Success! Project initialized"));
-    console.log("You may now add components.");
+    await withSpinner("Verifying package.json", async () => {
+      const pkgJSONPath = path.join(cwd, "package.json");
+      const exists = await fs.pathExists(pkgJSONPath);
+      const FILE = chalk.cyan("package.json");
+      const CWD = chalk.cyan(cwd);
+      if (!exists) throw new Error(`Path ${CWD} doesn't contain a ${FILE}.`);
+      return pkgJSONPath;
+    });
+
+    await withSpinner("Verifying framework", async (spinner) => {
+      const { framework } = projectInfo;
+      const CWD = chalk.cyan(cwd);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (!framework) throw new Error(`Couldn't find a framework at ${CWD}.`);
+      spinner.text = `Verifying framework. Found ${chalk.cyan(framework)}.`;
+      return framework;
+    });
+
+    await withSpinner("Verifying src directory", async (spinner) => {
+      const { isSrc } = await getProjectInfo(cwd);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      spinner.text = `Verifying src directory ${chalk.cyan(isSrc)}.`;
+      return isSrc;
+    });
+
+    await withSpinner("Validating Tailwind CSS.", async (spinner) => {
+      const { tailwindVersion: tv } = projectInfo;
+      const CWD = chalk.cyan(cwd);
+      const REQ_VER = chalk.cyan("v4");
+      const VER = chalk.cyan(tv);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (!tv) throw new Error(`No Tailwind CSS config found at ${CWD}.`);
+      if (tv === "v3") throw new Error(`Need tailwind ${REQ_VER}, got ${VER}.`);
+      spinner.text = `Validating Tailwind CSS. Found ${chalk.cyan(REQ_VER)}.`;
+    });
+
+    await withSpinner("Validating import alias.", async () => {
+      const { alias } = projectInfo;
+      const FILE = chalk.cyan("tsconfig.json");
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (!alias) throw new Error(`No import alias found in ${FILE}.`);
+    });
+
+    console.log("");
+    console.log(chalk.green("Success! Project initialized."));
+    console.log(chalk.green("You may now add components."));
   } catch (error) {
     handleError(error);
   }
