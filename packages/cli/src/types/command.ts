@@ -17,7 +17,7 @@ export type AddOptionsSchema = z.infer<typeof addOptionsSchema>;
 
 export const buildOptionsSchema = z.object({
   registryFile: z.string(),
-  output: z.string(),
+  outputDir: z.string(),
   cwd: z.string(),
 });
 

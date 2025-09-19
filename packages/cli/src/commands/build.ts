@@ -2,11 +2,11 @@ import path from "pathe";
 import chalk from "chalk";
 import { Command } from "commander";
 import fs from "fs-extra";
-import { preflightBuild } from "@/preflights/preflight-build";
-import { buildOptionsSchema, type BuildOptionsSchema } from "@/types/command";
-import { registryItemSchema, registrySchema } from "@/types/registry";
+import { buildOptionsSchema } from "@/types/command";
+import { registrySchema } from "@/types/registry";
 import { handleError } from "@/utils/handle-error";
 import { withSpinner } from "@/utils/spinner";
+import { buildRegistry } from "@/utils/build-registry";
 
 const build = new Command()
   .name("build")
@@ -22,54 +22,47 @@ const build = new Command()
     "the working directory. defaults to the current directory.",
     process.cwd()
   )
-  .action(async (registry: string, options: BuildOptionsSchema) => {
-    try {
-      const parsed = buildOptionsSchema.parse({
-        cwd: path.resolve(options.cwd),
-        registryFile: registry,
-        output: options.output,
-      });
+  .action((registry, options) => runBuild(registry, options));
 
-      const { registryFile } = await preflightBuild(parsed);
+async function runBuild(registry: string, options: any) {
+  try {
+    const { cwd, outputDir, registryFile } = buildOptionsSchema.parse({
+      cwd: path.resolve(options.cwd),
+      outputDir: options.output,
+      registryFile: registry,
+    });
 
-      const content = await fs.readJsonSync(registryFile, "utf-8");
-      const result = registrySchema.parse(content);
+    await withSpinner("Checking current working directory.", async () => {
+      const exists = await fs.pathExists(cwd);
+      const CWD = chalk.cyan.underline(cwd);
+      if (!exists) throw new Error(`Make sure directory exists: ${CWD}.`);
+    });
 
-      await withSpinner("Building registry", async () => {
-        await fs.emptyDir(parsed.output);
-        for (const registryItem of result.items) {
-          if (!registryItem.files) continue;
+    const reg = await withSpinner("Checking registry.json", async () => {
+      const registry = path.resolve(cwd, registryFile);
+      const exists = await fs.pathExists(registry);
+      const FILE = chalk.cyan("registry.json");
+      if (!exists) throw new Error(`${FILE} not found at ${registry}`);
+      return registry;
+    });
 
-          for (const file of registryItem.files) {
-            file.content = await fs.readFile(
-              path.resolve(parsed.cwd, file.path),
-              "utf-8"
-            );
-          }
+    const output = await withSpinner("Preparing out directory", async () => {
+      const dir = path.resolve(cwd, outputDir);
+      await fs.ensureDir(dir);
+      return dir;
+    });
 
-          const parsedRegistryItem = registryItemSchema.safeParse(registryItem);
-          if (!parsedRegistryItem.success) {
-            console.error(
-              `Invalid registry item found for ${chalk.cyan(registryItem.name)}.`
-            );
-            continue;
-          }
+    const registryContent = await fs.readJson(reg, "utf-8");
+    const parsedRegistry = registrySchema.parse(registryContent);
 
-          await fs.writeFile(
-            path.resolve(parsed.output, `${parsedRegistryItem.data.name}.json`),
-            JSON.stringify(parsedRegistryItem.data, null, 2)
-          );
-
-          // copy the registry.json file to the output directory as index.json
-          await fs.copyFile(
-            registryFile,
-            path.resolve(parsed.output, "index.json")
-          );
-        }
-      });
-    } catch (error) {
-      handleError(error);
-    }
-  });
+    await withSpinner("Building registry", async () => {
+      await fs.emptyDir(output);
+      await buildRegistry(cwd, output, parsedRegistry);
+      await fs.copyFile(registryFile, path.resolve(output, "index.json"));
+    });
+  } catch (error) {
+    handleError(error);
+  }
+}
 
 export default build;

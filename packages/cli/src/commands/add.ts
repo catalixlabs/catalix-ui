@@ -1,15 +1,16 @@
-import path from "pathe";
 import { Command } from "commander";
-import z from "zod";
-import prompts from "prompts";
 import fs from "fs-extra";
+import path from "pathe";
 import chalk from "chalk";
+import prompts from "prompts";
 import { handleError } from "@/utils/handle-error";
-import { getRegistryIndex, getRegistryItem } from "@/registry/api";
-import { registrySchema, registryItemSchema } from "@/types/registry";
-import { addOptionsSchema } from "@/types/command";
-import { preflightAdd } from "@/preflights/preflight-add";
-import { addDependency } from "nypm";
+import { addOptionsSchema, type AddOptionsSchema } from "@/types/command";
+import { withSpinner } from "@/utils/spinner";
+import { getRegistryIndex } from "@/registry/api";
+import { type RegistryItem } from "@/types/registry";
+import { resolveRegistryTree } from "@/registry/resolver";
+import { updateDependencies } from "@/updaters/update-dependencies";
+import { updateFiles } from "@/updaters/update-files";
 
 const add = new Command()
   .name("add")
@@ -22,161 +23,86 @@ const add = new Command()
     process.cwd()
   )
   .option("-a, --all", "add all available components", false)
-  .action(async (components, opts) => {
-    try {
-      const options = addOptionsSchema.parse({
-        components,
-        cwd: path.resolve(opts.cwd),
-        ...opts,
-      });
-
-      const selected = await getSelectedComponents(options);
-      options.components = selected;
-      const preflightResult = await preflightAdd(options);
-      await addComponents(options, preflightResult);
-    } catch (error) {
-      handleError(error);
-    }
-  });
+  .action(async (components, options) => runAdd(components, options));
 
 export default add;
 
-const getSelectedComponents = async (
-  options: z.infer<typeof addOptionsSchema>
-): Promise<string[]> => {
-  const components = await getAvailableComponents();
-  if (options.components?.length) return options.components;
-  if (options.all) return components.map((c) => c.name);
-  return await promptUserForComponents(components);
+async function runAdd(components: string[], options: AddOptionsSchema) {
+  try {
+    const parsed = addOptionsSchema.parse({
+      components,
+      cwd: path.resolve(options.cwd),
+      all: options.all,
+      overwrite: options.overwrite,
+    });
+
+    await withSpinner("Checking working directory", async () => {
+      const exists = await fs.pathExists(parsed.cwd);
+      const resolvedPath = chalk.cyan.underline(parsed.cwd);
+      if (!exists) throw new Error(`Directory does not exist: ${resolvedPath}`);
+      return resolvedPath;
+    });
+
+    await withSpinner("Verifying package.json", async () => {
+      const pkgJSONPath = path.join(parsed.cwd, "package.json");
+      const exists = await fs.pathExists(pkgJSONPath);
+      const FILE = chalk.cyan("package.json");
+      const CWD = chalk.cyan(parsed.cwd);
+      if (!exists) throw new Error(`Path ${CWD} doesn't contain a ${FILE}.`);
+    });
+
+    const available = await getRegistryComponents();
+    let selected: string[];
+
+    if (parsed.all) {
+      selected = available.map((i) => i.name);
+    } else if (parsed.components?.length) {
+      selected = parsed.components;
+    } else {
+      selected = await promptForComponents(available);
+    }
+
+    const registry = await withSpinner("Resolving components.", async () => {
+      const tree = await resolveRegistryTree(selected);
+      if (!tree) throw new Error("Failed to resolve registry items.");
+      return tree;
+    });
+
+    await updateDependencies(
+      registry.dependencies,
+      registry.devDependencies,
+      parsed.cwd
+    );
+    await updateFiles(registry.files, parsed.cwd, parsed.overwrite);
+
+    console.log(chalk.green(`Successfully added: ${selected.join(", ")}`));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+const getRegistryComponents = async (): Promise<RegistryItem[]> => {
+  const registry = await getRegistryIndex();
+  if (!registry) throw new Error("Failed to fetch registry index.");
+  return registry.items.filter((i: RegistryItem) => i.type === "registry:core");
 };
 
-const getAvailableComponents = async () => {
-  const registryData = await getRegistryIndex();
-  const registry = registrySchema.parse(registryData);
-  // Hide utility/library items from the prompt
-  return registry.items.filter((item) => item.type !== "registry:lib");
-};
-
-const promptUserForComponents = async (
-  components: Array<{ name: string }>
+const promptForComponents = async (
+  available: RegistryItem[]
 ): Promise<string[]> => {
   const { selected } = await prompts({
     type: "multiselect",
     name: "selected",
-    message: "Which components would you like to add?",
-    hint: "Space to select. A to toggle all. Enter to submit.",
-    instructions: false,
-    choices: components.map((component) => ({
-      title: component.name,
-      value: component.name,
-    })),
+    hint: "",
+    instructions: "",
+    message: "Select components to add",
+    choices: available.map((i) => ({ title: i.name, value: i.name })),
   });
 
-  if (!selected?.length) {
-    console.warn("No components selected. Exiting.");
+  if (!selected || !selected.length) {
+    console.error(chalk.yellow("No components selected. Exiting."));
     process.exit(1);
   }
 
   return selected;
-};
-
-const addComponents = async (
-  options: z.infer<typeof addOptionsSchema>,
-  preflightResult: { cwd: string; componentsJsonPath: string }
-) => {
-  const { cwd, componentsJsonPath } = preflightResult;
-  const selected = options.components ?? [];
-
-  // Read components.json config
-  const config = await fs.readJson(componentsJsonPath);
-
-  for (const name of selected) {
-    const item = await getRegistryItem(name);
-    const parsed = registryItemSchema.safeParse(item);
-    if (!parsed.success) {
-      console.warn(chalk.yellow(`Skipping invalid registry item: ${name}`));
-      continue;
-    }
-
-    // Write files
-    for (const file of parsed.data.files ?? []) {
-      const targetRelative = file.target ?? file.path;
-      if (!targetRelative) continue;
-
-      // Use config paths if available, otherwise fallback to target
-      let finalPath = targetRelative;
-      if (config.paths) {
-        if (targetRelative.includes("components/ui/")) {
-          finalPath = targetRelative.replace(
-            "components/ui/",
-            `${config.paths.ui}/`
-          );
-        } else if (targetRelative.includes("lib/utils/")) {
-          finalPath = targetRelative.replace(
-            "lib/utils/",
-            `${config.paths.utils}/`
-          );
-        } else if (targetRelative.includes("components/")) {
-          finalPath = targetRelative.replace(
-            "components/",
-            `${config.paths.components}/`
-          );
-        } else if (targetRelative.includes("lib/")) {
-          finalPath = targetRelative.replace("lib/", `${config.paths.lib}/`);
-        }
-      }
-
-      const targetPath = path.join(cwd, finalPath);
-      const targetDir = path.dirname(targetPath);
-      const exists = await fs.pathExists(targetPath);
-      if (exists && !options.overwrite) {
-        continue;
-      }
-      await fs.ensureDir(targetDir);
-      await fs.writeFile(targetPath, file.content ?? "", "utf-8");
-    }
-
-    // Install deps
-    const prev = {
-      npm_config_loglevel: process.env.npm_config_loglevel,
-      NPM_CONFIG_LOGLEVEL: process.env.NPM_CONFIG_LOGLEVEL,
-      npm_config_progress: process.env.npm_config_progress,
-      npm_config_fund: process.env.npm_config_fund,
-      npm_config_audit: process.env.npm_config_audit,
-      ADBLOCK: process.env.ADBLOCK,
-      DISABLE_OPENCOLLECTIVE: process.env.DISABLE_OPENCOLLECTIVE,
-      PNPM_LOG_LEVEL: process.env.PNPM_LOG_LEVEL,
-      YARN_SILENT: process.env.YARN_SILENT,
-    } as const;
-    try {
-      process.env.npm_config_loglevel = "silent";
-      process.env.NPM_CONFIG_LOGLEVEL = "silent";
-      process.env.npm_config_progress = "false";
-      process.env.npm_config_fund = "false";
-      process.env.npm_config_audit = "false";
-      process.env.ADBLOCK = "1";
-      process.env.DISABLE_OPENCOLLECTIVE = "1";
-      process.env.PNPM_LOG_LEVEL = "silent";
-      process.env.YARN_SILENT = "1";
-
-      for (const d of parsed.data.dependencies ?? []) {
-        await addDependency(d, { cwd });
-      }
-      for (const d of parsed.data.devDependencies ?? []) {
-        await addDependency(d, { cwd, dev: true } as any);
-      }
-    } finally {
-      process.env.npm_config_loglevel = prev.npm_config_loglevel;
-      process.env.NPM_CONFIG_LOGLEVEL = prev.NPM_CONFIG_LOGLEVEL;
-      process.env.npm_config_progress = prev.npm_config_progress;
-      process.env.npm_config_fund = prev.npm_config_fund;
-      process.env.npm_config_audit = prev.npm_config_audit;
-      process.env.ADBLOCK = prev.ADBLOCK;
-      process.env.DISABLE_OPENCOLLECTIVE = prev.DISABLE_OPENCOLLECTIVE;
-      process.env.PNPM_LOG_LEVEL = prev.PNPM_LOG_LEVEL;
-      process.env.YARN_SILENT = prev.YARN_SILENT;
-    }
-
-    // Do not mutate components.json — it's reserved for config
-  }
 };

@@ -39,3 +39,14 @@ export const registrySchema = z.object({
 
 export type RegistryItem = z.infer<typeof registryItemSchema>;
 export type Registry = z.infer<typeof registrySchema>;
+
+export const registryResolvedItemsTreeSchema = z.object({
+  files: z.array(registryItemSchema.shape.files.element).default([]),
+  dependencies: z.array(z.string()).default([]),
+  devDependencies: z.array(z.string()).default([]),
+  docs: z.string().default(""),
+});
+
+export type RegistryResolvedTree = z.infer<
+  typeof registryResolvedItemsTreeSchema
+>;
