@@ -1,9 +1,13 @@
 import { ofetch } from "ofetch";
-import type { Registry, RegistryItem } from "@/types/registry";
 import chalk from "chalk";
+import type { Registry, RegistryItem } from "@/types/registry";
 
-// const REGISTRY_BASE_URL = "https://foundry-ui.vercel.app/r";
-const REGISTRY_BASE_URL = "http://localhost:3000/r";
+// Get registry URL from environment variable or use default
+const getRegistryUrl = (): string => {
+  return process.env.REGISTRY_URL ?? "https://foundry-ui.vercel.app/r";
+};
+
+const REGISTRY_URL = getRegistryUrl();
 
 const cache = new Map<string, any>();
 
@@ -26,8 +30,8 @@ export const fetchWithCache = async <T>(
 
 export const getRegistryIndex = async (): Promise<Registry | null> => {
   return fetchWithCache(
-    `${REGISTRY_BASE_URL}/index.json`,
-    `${REGISTRY_BASE_URL}/index.json`
+    `${REGISTRY_URL}/index.json`,
+    `${REGISTRY_URL}/index.json`
   );
 };
 
@@ -35,7 +39,7 @@ export const getRegistryItem = async (
   name: string
 ): Promise<RegistryItem | null> => {
   return fetchWithCache(
-    `${REGISTRY_BASE_URL}/${name}.json`,
-    `${REGISTRY_BASE_URL}/${name}.json`
+    `${REGISTRY_URL}/${name}.json`,
+    `${REGISTRY_URL}/${name}.json`
   );
 };

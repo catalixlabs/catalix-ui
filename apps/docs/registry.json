@@ -38,7 +38,7 @@
         {
           "path": "src/registry/react/utils/cn.ts",
           "type": "registry:file",
-          "target": "lib/utils/cn.ts"
+          "target": "/utils/cn.ts"
         }
       ],
       "dependencies": [

@@ -64,13 +64,13 @@ export const isTSProject = async (cwd: string) => {
 };
 
 export const getTSConfig = async (cwd: string) => {
-  return getTsconfig(cwd)?.config;
+  return getTsconfig(cwd);
 };
 
 export const getTSConfigAliasPrefix = async (cwd: string) => {
   const config = await getTSConfig(cwd);
   if (!config) return null;
-  const { compilerOptions } = config;
+  const { compilerOptions } = config.config;
   const aliasPaths = compilerOptions?.paths ?? {};
   const [alias] = Object.entries(aliasPaths).find(([, paths]) =>
     paths.some((p) => /^\.\/(src|app)?\*$/.test(p))
