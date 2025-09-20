@@ -18,7 +18,7 @@
       "path": "src/registry/react/utils/cn.ts",
       "content": "import { type ClassValue, clsx } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nexport const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));\n",
       "type": "registry:file",
-      "target": "lib/utils/cn.ts"
+      "target": "/utils/cn.ts"
     }
   ]
 }

@@ -8,7 +8,7 @@ export default defineConfig([
     sourcemap: true,
     shims: true,
     env: {
-      REGISTRY_URL: "https://foundry-ui.vercel.app/r",
+      REGISTRY_URL: "http://localhost:3000/r",
     },
   },
 ]);
