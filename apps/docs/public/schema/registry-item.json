@@ -44,7 +44,7 @@
     "registryDependencies": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "Other Foundry registry items or external registry URLs this depends on."
+      "description": "Other Catalix registry items or external registry URLs this depends on."
     },
     "files": {
       "type": "array",

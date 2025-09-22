@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import Foundry from "public/images/foundry.svg";
+import Catalix from "public/images/catalix.svg";
 
 export function baseOptions(): BaseLayoutProps {
   return {
@@ -8,8 +8,8 @@ export function baseOptions(): BaseLayoutProps {
       title: (
         <Fragment>
           <div className="flex items-center gap-2">
-            <Foundry className="size-6" />
-            <span>Foundry UI</span>
+            <Catalix className="size-6" />
+            <span>Catalix UI</span>
           </div>
         </Fragment>
       ),

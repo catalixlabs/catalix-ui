@@ -1,7 +1,7 @@
 {
-  "$schema": "https://foundry-ui.vercel.app/schema/registry.json",
-  "name": "Foundry UI",
-  "homepage": "https://foundry-ui.vercel.app",
+  "$schema": "https://catalix-ui.vercel.app/schema/registry.json",
+  "name": "Catalix UI",
+  "homepage": "https://catalix-ui.vercel.app",
   "items": [
     {
       "name": "button",
