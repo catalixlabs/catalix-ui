@@ -7,8 +7,5 @@ export default defineConfig([
     dts: true,
     sourcemap: true,
     shims: true,
-    env: {
-      REGISTRY_URL: "https://foundry-ui.vercel.app/r",
-    },
   },
 ]);

@@ -11,7 +11,7 @@ export default function Hero() {
               From design to code, own every line of your interface.
             </h2>
             <p className="mb-6 mt-4 max-w-lg text-center text-base">
-              Foundry UI gives you accessible React components that you fully
+              Catalix UI gives you accessible React components that you fully
               own and control. Built on top of Radix UI for accessibility and
               styled with Tailwind CSS for sleek, modern design, every component
               is easy to copy, customize, and make entirely yours.

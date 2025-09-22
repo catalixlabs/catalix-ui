@@ -37,7 +37,7 @@ export async function generateMetadata(
   const params = await props.params;
   const page = source.getPage(params.slug);
   if (!page) notFound();
-  const title = page.data.title + " | Foundry UI";
+  const title = page.data.title + " | Catalix UI";
   const description = page.data.description;
   return { title, description };
 }

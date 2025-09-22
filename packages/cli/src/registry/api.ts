@@ -2,12 +2,7 @@ import { ofetch } from "ofetch";
 import chalk from "chalk";
 import type { Registry, RegistryItem } from "@/types/registry";
 
-// Get registry URL from environment variable or use default
-const getRegistryUrl = (): string => {
-  return process.env.REGISTRY_URL ?? "https://foundry-ui.vercel.app/r";
-};
-
-const REGISTRY_URL = getRegistryUrl();
+const REGISTRY_URL = process.env.REGISTRY_URL;
 
 const cache = new Map<string, any>();
 
