@@ -1,16 +1,16 @@
 {
   "name": "@catalix/cli",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "description": "CLI for managing Catalix UI components",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://github.com/author/library#readme",
+  "homepage": "https://catalix-ui.vercel.app",
   "bugs": {
     "url": "https://github.com/author/library/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "https://github.com/catalixlabs/catalix-ui.git"
   },
   "author": "Sooraj <soorajkj46@gmail.com>",
   "files": [
@@ -30,8 +30,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
+    "build": "tsdown --env.REGISTRY_URL=https://catalix-ui.vercel.app/r",
+    "dev": "tsdown --env.REGISTRY_URL=http://localhost:3000/r --watch",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && npm publish"
