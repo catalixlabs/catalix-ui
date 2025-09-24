@@ -1,5 +1,6 @@
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
+import { cn } from "@/registry/react/utils/cn";
 
 export type InputVariant = VariantProps<typeof inputVariants>;
 export interface InputProps
@@ -7,11 +8,17 @@ export interface InputProps
     InputVariant {}
 
 export default function Input({ className, ...props }: InputProps) {
-  return <input className={inputVariants({ className })} {...props} />;
+  return (
+    <input
+      data-slot="input"
+      className={cn(inputVariants({ className }))}
+      {...props}
+    />
+  );
 }
 
 export const inputVariants = tv({
   base: [
-    "flex h-9 w-full rounded-md border border-neutral-200 dark:border-neutral-800 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-neutral-950 dark:file:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 dark:focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+    "aria-invalid:ring-red-600/20 aria-invalid:border-red-600 flex h-9 w-full min-w-0 rounded-md border border-zinc-200 bg-transparent px-3 py-1 text-base outline-none transition selection:bg-zinc-950 selection:text-white file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-zinc-950 placeholder:text-zinc-500 focus-visible:border-zinc-950 focus-visible:ring-[3px] focus-visible:ring-zinc-950/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-zinc-800 dark:ring-white/15 dark:selection:text-zinc-950 dark:file:text-white dark:placeholder:text-zinc-400 dark:focus-visible:border-white dark:focus-visible:ring-white/50",
   ],
 });

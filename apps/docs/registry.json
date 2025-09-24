@@ -6,7 +6,6 @@
     {
       "name": "button",
       "type": "registry:core",
-      "dependencies": ["tailwind-variants"],
       "files": [
         {
           "path": "src/registry/react/core/button.tsx",
@@ -34,24 +33,37 @@
           "path": "src/registry/react/core/separator.tsx",
           "type": "registry:core",
           "target": "components/core/separator.tsx"
-        },
-        {
-          "path": "src/registry/react/utils/cn.ts",
-          "type": "registry:file",
-          "target": "/utils/cn.ts"
         }
       ],
-      "dependencies": [
-        "@radix-ui/react-separator",
-        "tailwind-variants",
-        "clsx",
-        "tailwind-merge"
+      "dependencies": ["@radix-ui/react-separator"]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:core",
+      "files": [
+        {
+          "path": "src/registry/react/core/textarea.tsx",
+          "type": "registry:core",
+          "target": "components/core/textarea.tsx"
+        }
       ]
+    },
+    {
+      "name": "label",
+      "type": "registry:core",
+      "files": [
+        {
+          "path": "src/registry/react/core/label.tsx",
+          "type": "registry:core",
+          "target": "components/core/label.tsx"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-label"]
     },
     {
       "name": "cn",
       "type": "registry:lib",
-      "dependencies": ["tailwind-merge", "clsx"],
+      "dependencies": ["tailwind-merge", "clsx", "tailwind-variants"],
       "files": [
         {
           "path": "src/registry/react/utils/cn.ts",

@@ -1,0 +1,15 @@
+{
+  "name": "label",
+  "type": "registry:core",
+  "dependencies": [
+    "@radix-ui/react-label"
+  ],
+  "files": [
+    {
+      "path": "src/registry/react/core/label.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as LabelPrimitive from \"@radix-ui/react-label\";\nimport { tv, type VariantProps } from \"tailwind-variants\";\nimport { cn } from \"@/registry/react/utils/cn\";\n\nexport type LabelVariant = VariantProps<typeof labelVariants>;\nexport interface InputProps\n  extends React.ComponentProps<typeof LabelPrimitive.Root>,\n    LabelVariant {}\n\nexport default function Label({ className, ...props }: InputProps) {\n  return (\n    <LabelPrimitive.Root\n      data-slot=\"label\"\n      className={cn(labelVariants({ className }))}\n      {...props}\n    />\n  );\n}\n\nexport const labelVariants = tv({\n  base: [\n    \"select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50\",\n  ],\n});\n",
+      "type": "registry:core",
+      "target": "components/core/label.tsx"
+    }
+  ]
+}

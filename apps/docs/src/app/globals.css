@@ -4,45 +4,45 @@
 
 :root {
   --background: var(--color-white);
-  --foreground: var(--color-neutral-950);
+  --foreground: var(--color-zinc-950);
   --card: var(--color-white);
-  --card-foreground: var(--color-neutral-950);
+  --card-foreground: var(--color-zinc-950);
   --popover: var(--color-white);
-  --popover-foreground: var(--color-neutral-950);
-  --primary: var(--color-neutral-950);
+  --popover-foreground: var(--color-zinc-950);
+  --primary: var(--color-zinc-950);
   --primary-foreground: var(--color-white);
-  --secondary: var(--color-neutral-100);
-  --secondary-foreground: var(--color-neutral-950);
-  --muted: var(--color-neutral-100);
-  --muted-foreground: var(--color-neutral-500);
-  --accent: var(--color-neutral-100);
-  --accent-foreground: var(--color-neutral-950);
+  --secondary: var(--color-zinc-100);
+  --secondary-foreground: var(--color-zinc-950);
+  --muted: var(--color-zinc-100);
+  --muted-foreground: var(--color-zinc-500);
+  --accent: var(--color-zinc-100);
+  --accent-foreground: var(--color-zinc-950);
   --destructive: var(--color-red-600);
   --destructive-foreground: var(--color-white);
-  --border: var(--color-neutral-200);
-  --input: var(--color-neutral-200);
-  --ring: var(--color-neutral-950);
+  --border: var(--color-zinc-200);
+  --input: var(--color-zinc-200);
+  --ring: var(--color-zinc-950);
 }
 
 [data-theme="dark"] {
-  --background: var(--color-neutral-950);
+  --background: var(--color-zinc-950);
   --foreground: var(--color-white);
-  --card: var(--color-neutral-950);
+  --card: var(--color-zinc-950);
   --card-foreground: var(--color-white);
-  --popover: var(--color-neutral-950);
+  --popover: var(--color-zinc-950);
   --popover-foreground: var(--color-white);
   --primary: var(--color-white);
-  --primary-foreground: var(--color-neutral-950);
-  --secondary: var(--color-neutral-800);
+  --primary-foreground: var(--color-zinc-950);
+  --secondary: var(--color-zinc-800);
   --secondary-foreground: var(--color-white);
-  --muted: var(--color-neutral-800);
-  --muted-foreground: var(--color-neutral-400);
-  --accent: var(--color-neutral-800);
+  --muted: var(--color-zinc-800);
+  --muted-foreground: var(--color-zinc-400);
+  --accent: var(--color-zinc-800);
   --accent-foreground: var(--color-white);
   --destructive: var(--color-red-600);
   --destructive-foreground: var(--color-white);
-  --border: var(--color-neutral-800);
-  --input: var(--color-neutral-800);
+  --border: var(--color-zinc-800);
+  --input: var(--color-zinc-800);
   --ring: var(--color-white);
 }
 

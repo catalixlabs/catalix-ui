@@ -9,10 +9,10 @@ export const withSpinner = async <T>(
 
   try {
     const result = await task(spinner);
-    spinner.succeed();
+    if (spinner.isSpinning) spinner.succeed();
     return result;
   } catch (e) {
-    spinner.fail();
+    if (spinner.isSpinning) spinner.fail();
     throw e;
   }
 };

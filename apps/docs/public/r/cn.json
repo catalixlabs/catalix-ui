@@ -3,7 +3,8 @@
   "type": "registry:lib",
   "dependencies": [
     "tailwind-merge",
-    "clsx"
+    "clsx",
+    "tailwind-variants"
   ],
   "files": [
     {

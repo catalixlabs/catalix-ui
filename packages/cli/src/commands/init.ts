@@ -6,6 +6,9 @@ import { withSpinner } from "@/utils/spinner";
 import { handleError } from "@/utils/handle-error";
 import { initOptionsSchema, type InitOptionsSchema } from "@/types/command";
 import { getProjectInfo } from "@/utils/project-info";
+import { resolveRegistryTree } from "@/registry/resolver";
+import { updateFiles } from "@/updaters/update-files";
+import { updateDependencies } from "@/updaters/update-dependencies";
 
 const init = new Command()
   .name("init")
@@ -74,6 +77,17 @@ async function runInit(options: InitOptionsSchema) {
       await new Promise((resolve) => setTimeout(resolve, 500));
       if (!alias) throw new Error(`No import alias found in ${FILE}.`);
     });
+
+    // Ensure common utils (cn) are added on init
+    const registry = await resolveRegistryTree(["cn"]);
+    if (registry) {
+      await updateDependencies(
+        registry.dependencies,
+        registry.devDependencies,
+        cwd
+      );
+      await updateFiles(registry.files, cwd, false);
+    }
 
     console.log("");
     console.log(chalk.green("Success! Project initialized."));

@@ -62,7 +62,7 @@ async function runAdd(components: string[], options: AddOptionsSchema) {
       selected = await promptForComponents(available);
     }
 
-    const registry = await withSpinner("Resolving components.", async () => {
+    const registry = await withSpinner("Resolving registry.", async () => {
       const tree = await resolveRegistryTree(selected);
       if (!tree) throw new Error("Failed to resolve registry items.");
       return tree;
@@ -73,9 +73,8 @@ async function runAdd(components: string[], options: AddOptionsSchema) {
       registry.devDependencies,
       parsed.cwd
     );
-    await updateFiles(registry.files, parsed.cwd, parsed.overwrite);
 
-    console.log(chalk.green(`Successfully added: ${selected.join(", ")}`));
+    await updateFiles(registry.files, parsed.cwd, parsed.overwrite);
   } catch (error) {
     handleError(error);
   }
@@ -93,8 +92,8 @@ const promptForComponents = async (
   const { selected } = await prompts({
     type: "multiselect",
     name: "selected",
-    hint: "",
-    instructions: "",
+    hint: "Space to select. A to toggle all. Enter to submit.",
+    instructions: false,
     message: "Select components to add",
     choices: available.map((i) => ({ title: i.name, value: i.name })),
   });
