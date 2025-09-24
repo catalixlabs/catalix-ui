@@ -4,6 +4,14 @@ CLI for managing Catalix UI components.
 
 ## Usage
 
+Use the `init` command to initialize dependencies for a new project.
+
+The `init` command installs dependencies, adds the `cn` util.
+
+```bash
+npx @catalix/cli init
+```
+
 ## add
 
 Use the `add` command to add components to your project.

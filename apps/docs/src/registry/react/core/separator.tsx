@@ -23,7 +23,7 @@ export default function Separator({
 }
 
 export const separtorVariants = tv({
-  base: "bg-neutral-200 dark:bg-neutral-800 shrink-0 pointer-events-none",
+  base: "pointer-events-none shrink-0 bg-zinc-200 dark:bg-zinc-800",
   variants: {
     orientation: {
       horizontal: "h-px w-full",

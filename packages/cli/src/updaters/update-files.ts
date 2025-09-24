@@ -15,26 +15,26 @@ export const updateFiles = async (
   const project = new Project({ useInMemoryFileSystem: true });
   const isSrc = await isSrcDirectory(cwd);
 
-  await withSpinner("Writing files.", async () => {
+  await withSpinner("Updating files.", async (spinner) => {
     const fileList = files || [];
-    let written = 0;
+    let updated = 0;
     let skipped = 0;
+    const updatedFiles: string[] = [];
+    const skippedFiles: string[] = [];
 
     for (const file of fileList) {
       let targetPath = file.target || file.path;
       if (!targetPath) continue;
 
       // If src folder exists, prepend it
-      if (isSrc) {
-        targetPath = path.join("src", targetPath);
-      }
-
+      if (isSrc) targetPath = path.join("src", targetPath);
       // Transform imports using ts-morph
       const sourceFile = project.createSourceFile(
         file.path,
         file.content || "",
         { overwrite: true }
       );
+
       transform(sourceFile);
       file.content = sourceFile.getFullText();
 
@@ -45,6 +45,7 @@ export const updateFiles = async (
       const exists = await fs.pathExists(fullPath);
       if (exists && !overwrite) {
         skipped++;
+        skippedFiles.push(targetPath);
         continue;
       }
 
@@ -53,9 +54,20 @@ export const updateFiles = async (
 
       // Write file
       await fs.writeFile(fullPath, file.content || "", "utf-8");
-      written++;
+      updated++;
+      updatedFiles.push(targetPath);
     }
 
-    return { written, skipped };
+    if (updatedFiles.length) {
+      spinner.succeed(`Created ${updated} file(s):`);
+      updatedFiles.forEach((f) => console.log(`  - ${f}`));
+    }
+
+    if (skippedFiles.length) {
+      spinner.info(`Skipped ${skipped} file(s): (use --overwrite)`);
+      skippedFiles.forEach((f) => console.log(`  - ${f}`));
+    }
+
+    return { updated, skipped, updatedFiles, skippedFiles };
   });
 };
