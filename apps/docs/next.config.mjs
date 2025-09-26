@@ -1,7 +1,7 @@
-import type { NextConfig } from "next";
 import { createMDX } from "fumadocs-mdx/next";
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const config = {
   turbopack: {
     rules: {
       "*.svg": {
@@ -30,4 +30,5 @@ const nextConfig: NextConfig = {
 };
 
 const withMDX = createMDX();
-export default withMDX(nextConfig);
+
+export default withMDX(config);

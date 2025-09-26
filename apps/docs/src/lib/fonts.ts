@@ -1,7 +1,7 @@
-import { Geist } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 export const geist = Geist({
-  variable: "--font-geist",
+  variable: "--font-sans",
   display: "swap",
   subsets: ["latin"],
   preload: true,
@@ -10,6 +10,16 @@ export const geist = Geist({
   adjustFontFallback: true,
 });
 
-const fonts = geist.variable;
+export const geistMono = Geist_Mono({
+  variable: "--font-mono",
+  display: "swap",
+  subsets: ["latin"],
+  preload: true,
+  style: ["normal"],
+  weight: "variable",
+  adjustFontFallback: true,
+});
+
+const fonts = geist.variable + " " + geistMono.variable;
 
 export default fonts;

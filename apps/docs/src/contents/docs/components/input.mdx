@@ -1,0 +1,27 @@
+---
+title: Input
+description: Text input with accessible styles.
+---
+
+## Install
+
+```bash
+catalix add input
+```
+
+## Usage
+
+```tsx
+import Input from "@/registry/react/core/input";
+
+export default function Example() {
+  return (
+    <div className="space-y-2">
+      <Input placeholder="Email" />
+      <Input aria-invalid placeholder="Invalid" />
+      <Input type="file" />
+    </div>
+  );
+}
+```
+
