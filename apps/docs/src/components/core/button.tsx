@@ -1,6 +1,6 @@
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import { cn } from "@/registry/react/utils/cn";
+import { cn } from "@/utils/cn";
 
 export type ButtonVarinat = VariantProps<typeof buttonVariant>;
 export interface ButtonProps

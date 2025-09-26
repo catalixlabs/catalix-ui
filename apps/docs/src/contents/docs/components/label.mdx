@@ -1,0 +1,27 @@
+---
+title: Label
+description: Accessible label built on Radix UI Label.
+---
+
+## Install
+
+```bash
+catalix add label
+```
+
+## Usage
+
+```tsx
+import Label from "@/registry/react/core/label";
+import Input from "@/registry/react/core/input";
+
+export default function Example() {
+  return (
+    <div className="grid gap-2">
+      <Label htmlFor="email">Email</Label>
+      <Input id="email" placeholder="you@example.com" />
+    </div>
+  );
+}
+```
+

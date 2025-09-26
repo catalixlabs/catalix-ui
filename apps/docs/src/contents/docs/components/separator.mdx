@@ -1,0 +1,33 @@
+---
+title: Separator
+description: Visual separator built on Radix UI Separator.
+---
+
+## Install
+
+```bash
+catalix add separator
+```
+
+## Usage
+
+```tsx
+import Separator from "@/registry/react/core/separator";
+
+export default function Example() {
+  return (
+    <div className="space-y-4">
+      <div>Section A</div>
+      <Separator />
+      <div>Section B</div>
+      <div className="h-8" />
+      <div className="flex items-stretch gap-4">
+        <div className="flex-1">Left</div>
+        <Separator orientation="vertical" />
+        <div className="flex-1">Right</div>
+      </div>
+    </div>
+  );
+}
+```
+
