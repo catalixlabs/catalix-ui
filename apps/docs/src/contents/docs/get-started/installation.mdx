@@ -7,11 +7,21 @@ Catalix ships a CLI that pulls components from a JSON registry and writes them i
 
 ## Prerequisites
 
-- **Node.js** 18+
+Before you begin, make sure your system meets the following requirements:
+
+- **Node.js** 18+ or later
 - **Package manager**: pnpm, npm, or yarn
-- **Tailwind CSS v4** configured in your app (the CLI validates this)
-- **TypeScript path alias** configured in `tsconfig.json` (the CLI validates this)
 
-## Install the CLI
+<Callout>
+  ⚠️ This library only supports **Next.js** and **Tailwind CSS v4**. It relies
+  on the latest utilities introduced in Tailwind v4, so earlier versions are not
+  compatible. We also recommend using **TypeScript** for the best developer
+  experience, including type safety and auto-completion.
+</Callout>
 
-You can run the CLI via npx/pnpm dlx without installing, or add it to devDependencies.
+## Pick Your Framework
+
+Currently, **we only support Next.js**. Catalix UI is designed to work with React frameworks in general, but at the moment, only **Next.js** is fully supported.
+
+- **[Next.js](/docs/installation/next)**
+- **[Vite](/docs/installation/vite)**
