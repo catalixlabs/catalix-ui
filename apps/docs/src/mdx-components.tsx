@@ -1,6 +1,5 @@
 import type { MDXComponents } from "mdx/types";
-
-const defaultMdxComponents: MDXComponents = {};
+import defaultMdxComponents from "fumadocs-ui/mdx";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
