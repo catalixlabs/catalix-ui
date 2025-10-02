@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning={true} className={fonts}>
-      <body className="bg-background text-foreground font-sans text-base font-normal">
+      <body className="bg-background text-foreground h-full min-h-svh w-full font-sans text-base font-normal antialiased">
         <ThemeProvider
           enableSystem={true}
           defaultTheme="system"

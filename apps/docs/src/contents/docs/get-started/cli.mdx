@@ -13,7 +13,7 @@ The `init` command adds all necessary files and installs required dependencies a
 npx @catalix/cli@latest init
 ```
 
-**Options**
+### Options
 
 ```bash
 Usage: catalix/cli init [options]
@@ -21,11 +21,9 @@ Usage: catalix/cli init [options]
 initialize your project and install dependencies
 
 Options:
-  -c, --cwd <cwd>                the working directory. defaults to the current directory.
-  -h, --help                     display help for command
+  -c, --cwd <cwd>     the working directory. defaults to the current directory.
+  -h, --help          display help for command
 ```
-
----
 
 ## add
 
@@ -35,7 +33,31 @@ Use the `add` command to add components and dependencies to your project.
 npx catalix/cli@latest add [component]
 ```
 
-**Options**
+You can also run the command without specifying a component to be prompted with a list of all available components.
+
+```package-install
+npx catalix/cli@latest add
+```
+
+When running without arguments, you'll see an interactive prompt where you can select the components you want to add:
+
+```txt
+Which components would you like to add? > Space to select. A to toggle all.
+Enter to submit.
+
+◯  accordion
+◯  alert
+◯  alert-dialog
+◯  aspect-ratio
+◯  avatar
+◯  badge
+◯  button
+◯  calendar
+◯  card
+◯  checkbox
+```
+
+### Options
 
 ```bash
 Usage: catalix/cli add [options] [components...]
@@ -51,5 +73,3 @@ Options:
   -a, --all           add all available components (default: false)
   -h, --help          display help for command
 ```
-
----

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getMDXComponents } from "@/mdx-components";
 import { source } from "@/lib/source";
 import TableOfContents from "@/components/[docs]/TableOfContents";
-import Footer from "@/components/[docs]/Footer";
+import Pagination from "@/components/[docs]/Pagination";
 
 export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const params = await props.params;
@@ -13,17 +13,17 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const MDXContent = page.data.body;
 
   return (
-    <div className="flex size-full">
-      <div className="flex1-1 w-full">
-        <article className="mx-auto flex w-full min-w-0 max-w-2xl flex-col gap-4 py-8">
+    <div className="flex items-stretch xl:w-full">
+      <div className="flex min-w-0 flex-1 flex-col">
+        <article className="mx-auto flex w-full min-w-0 max-w-3xl flex-col gap-4 p-4">
           <h1 className="text-3xl font-semibold">{page.data.title}</h1>
           <p className="text-muted-foreground text-lg">
             {page.data.description}
           </p>
-          <div className="prose dark:prose-invert text-muted-foreground">
+          <div className="prose dark:prose-invert">
             <MDXContent components={getMDXComponents({})} />
           </div>
-          <Footer path={page.url} />
+          <Pagination path={page.url} />
         </article>
       </div>
       <TableOfContents items={page.data.toc} />

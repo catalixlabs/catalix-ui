@@ -6,16 +6,8 @@ export const docs = defineDocs({
 
 export default defineConfig({
   mdxOptions: {
-    rehypeCodeOptions: {
-      themes: {
-        light: "catppuccin-latte",
-        dark: "catppuccin-mocha",
-      },
-    },
     remarkNpmOptions: {
-      persist: {
-        id: "package-manager",
-      },
+      persist: { id: "pm" },
     },
   },
 });

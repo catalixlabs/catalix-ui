@@ -6,7 +6,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <div className="flex h-full min-h-screen flex-col">
       <Header />
-      <main>{children}</main>
+      <main className="flex flex-1 flex-col">{children}</main>
       <Footer />
     </div>
   );

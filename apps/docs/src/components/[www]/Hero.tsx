@@ -4,11 +4,11 @@ import Installer from "./Installer";
 
 export default function Hero() {
   return (
-    <section className="border-border relative border-b border-dashed">
-      <div className="border-border mx-auto w-full max-w-6xl border-x border-dashed">
-        <div className="mx-auto w-full max-w-6xl px-4 py-44">
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="mx-2 max-w-5xl text-balance text-center text-4xl tracking-tighter sm:text-5xl lg:text-6xl xl:text-7xl">
+    <section className="border-border relative border-b border-dotted">
+      <div className="border-border mx-auto w-full max-w-7xl border-x border-dotted">
+        <div className="mx-auto w-full max-w-7xl px-4">
+          <div className="relative flex flex-col items-center justify-center py-44">
+            <h2 className="mx-auto max-w-5xl text-balance text-center text-4xl tracking-tighter sm:text-5xl lg:text-6xl xl:text-7xl">
               From design to code, own every line of your interface.
             </h2>
             <p className="text-muted-foreground mb-6 mt-4 max-w-2xl text-center text-base">
@@ -17,7 +17,7 @@ export default function Hero() {
               styled with Tailwind CSS for sleek, modern design, every component
               is easy to copy, customize, and make entirely yours.
             </p>
-            <div className="flex w-full max-w-md items-center gap-2">
+            <div className="flex w-full max-w-md flex-col items-center gap-2 md:flex-row">
               <Installer />
               <Link
                 href="/docs"

@@ -11,9 +11,9 @@ export default function Components() {
   const rows = chunkArray(items, 3); // group into 3s
 
   return (
-    <section className="border-border relative border-b border-dashed">
-      <div className="border-border mx-auto w-full max-w-6xl border-x border-dashed">
-        <div className="mx-auto w-full max-w-6xl px-4">
+    <section className="border-border relative border-b border-dotted">
+      <div className="border-border mx-auto w-full max-w-7xl border-x border-dotted">
+        <div className="mx-auto w-full max-w-7xl px-4">
           <div className="relative py-24">
             <div className="mx-auto flex max-w-md flex-col items-center gap-4 pb-12 text-center">
               <h2 className="text-balance text-4xl tracking-tighter sm:text-5xl">

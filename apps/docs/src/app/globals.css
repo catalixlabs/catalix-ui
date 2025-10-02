@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @plugin "tailwind-scrollbar";
 @import "fumadocs-ui/css/preset.css";
+@import "fumadocs-ui/css/neutral.css";
 
 :root {
   --background: var(--color-white);
@@ -71,25 +72,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-fd-background: var(--background);
-  --color-fd-foreground: var(--foreground);
-  --color-fd-card: var(--card);
-  --color-fd-card-foreground: var(--card-foreground);
-  --color-fd-popover: var(--popover);
-  --color-fd-popover-foreground: var(--popover-foreground);
-  --color-fd-primary: var(--primary);
-  --color-fd-primary-foreground: var(--primary-foreground);
-  --color-fd-secondary: var(--secondary);
-  --color-fd-secondary-foreground: var(--secondary-foreground);
-  --color-fd-muted: var(--muted);
-  --color-fd-muted-foreground: var(--muted-foreground);
-  --color-fd-accent: var(--accent);
-  --color-fd-accent-foreground: var(--accent-foreground);
-  --color-fd-destructive: var(--destructive);
-  --color-fd-destructive-foreground: var(--destructive-foreground);
-  --color-fd-border: var(--border);
-  --color-fd-input: var(--input);
-  --color-fd-ring: var(--ring);
+  --container-8xl: 1440px;
 }
 
 @utility prose {
