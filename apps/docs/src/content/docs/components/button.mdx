@@ -1,0 +1,58 @@
+---
+title: Button
+description: Button component with variants and sizes.
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/Button.html
+  api: https://react-spectrum.adobe.com/react-aria/Button.html#props
+---
+
+## Installation
+
+```package-install
+npx @catalix/cli@latest add button
+```
+
+## Usage
+
+```tsx title="page.tsx" lineNumbers
+import Button from "@/components/core/button"; //[!code ++]
+
+export default function Example() {
+  return <Button>Click me</Button>; //[!code ++]
+}
+```
+
+## Examples
+
+### Variants
+
+<div className="flex flex-col flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
+  <DemoButton variant="default">Default Button</DemoButton>
+  <DemoButton variant="secondary">Secondary Button</DemoButton>
+  <DemoButton variant="link">Link Button</DemoButton>
+  <DemoButton variant="outline">Outline Button</DemoButton>
+  <DemoButton variant="ghost">Ghost Button</DemoButton>
+  <DemoButton variant="destructive">Destructive Button</DemoButton>
+</div>
+
+### Sizes
+
+<div className="flex flex-col flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
+  <DemoButton variant="outline" size="sm">
+    Outline Button
+  </DemoButton>
+  <DemoButton variant="outline" size="md">
+    Outline Button
+  </DemoButton>
+  <DemoButton variant="outline" size="lg">
+    Outline Button
+  </DemoButton>
+</div>
+
+## API Reference
+
+| Prop     | Type                                                                                    | Default   | Description                            |
+| -------- | --------------------------------------------------------------------------------------- | --------- | -------------------------------------- |
+| variant  | `"default"` \| `"destructive"` \| `"outline"` \| `"secondary"` \| `"ghost"` \| `"link"` | `default` | Defines the visual style of the button |
+| size     | `"sm"` \| `"md"` \| `"lg"`                                                              | `md`      | Controls the button size               |
+| ...props | `ButtonPrimitiveProps`                                                                  | \_        | All standard button props              |

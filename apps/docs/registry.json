@@ -6,11 +6,36 @@
     {
       "name": "button",
       "type": "registry:core",
+      "dependencies": [
+        "tailwind-merge",
+        "clsx",
+        "tailwind-variants",
+        "react-aria-components",
+        "twmx"
+      ],
       "files": [
         {
           "path": "src/registry/react/core/button.tsx",
           "type": "registry:core",
           "target": "components/core/button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "link",
+      "type": "registry:core",
+      "dependencies": [
+        "tailwind-merge",
+        "clsx",
+        "tailwind-variants",
+        "react-aria-components",
+        "twmx"
+      ],
+      "files": [
+        {
+          "path": "src/registry/react/core/link.tsx",
+          "type": "registry:core",
+          "target": "components/core/link.tsx"
         }
       ]
     },
@@ -35,7 +60,13 @@
           "target": "components/core/separator.tsx"
         }
       ],
-      "dependencies": ["@radix-ui/react-separator"]
+      "dependencies": [
+        "tailwind-merge",
+        "clsx",
+        "tailwind-variants",
+        "react-aria-components",
+        "twmx"
+      ]
     },
     {
       "name": "textarea",
@@ -59,18 +90,6 @@
         }
       ],
       "dependencies": ["@radix-ui/react-label"]
-    },
-    {
-      "name": "cn",
-      "type": "registry:lib",
-      "dependencies": ["tailwind-merge", "clsx", "tailwind-variants"],
-      "files": [
-        {
-          "path": "src/registry/react/utils/cn.ts",
-          "type": "registry:lib",
-          "target": "utils/cn.ts"
-        }
-      ]
     }
   ]
 }

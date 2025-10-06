@@ -3,6 +3,9 @@ import type { MDXComponents } from "mdx/types";
 import defaultComponents from "fumadocs-ui/mdx";
 import { Heading } from "@/mdx/components/heading";
 
+import DemoButton from "@/components/core/button";
+import DemoSeparator from "@/components/core/separator";
+
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...defaultComponents,
@@ -24,6 +27,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     h6: (props: HTMLAttributes<HTMLHeadingElement>) => (
       <Heading as="h6" {...props} />
     ),
+    DemoButton,
+    DemoSeparator,
     ...components,
   };
 }

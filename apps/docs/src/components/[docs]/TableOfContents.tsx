@@ -9,18 +9,18 @@ export default function TableOfContents({ items }: { items: TOCItemType[] }) {
 
   return (
     <AnchorProvider toc={items}>
-      <div
+      <aside
         ref={viewRef}
-        className="sticky top-16 hidden w-full max-w-64 p-4 xl:block"
-        style={{ height: "calc(100svh - 64px)" }}
+        className="sticky top-14 hidden w-full max-w-64 pt-6 xl:block"
+        style={{ height: "calc(100vh - 56px)" }}
       >
-        <div className="flex w-full flex-col">
+        <div className="flex flex-col">
           <h3 className="pb-2 text-sm">On this page</h3>
           <ScrollProvider containerRef={viewRef}>
             <TOCTree items={buildTree(items)} />
           </ScrollProvider>
         </div>
-      </div>
+      </aside>
     </AnchorProvider>
   );
 }

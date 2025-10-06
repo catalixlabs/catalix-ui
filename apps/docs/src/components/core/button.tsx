@@ -1,11 +1,16 @@
+"use client";
+
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import { cn } from "@/utils/cn";
+import {
+  Button as ButtonPrimitive,
+  ButtonProps as ButtonPrimitiveProps,
+  composeRenderProps,
+} from "react-aria-components";
+import { twmx } from "twmx";
 
-export type ButtonVarinat = VariantProps<typeof buttonVariant>;
-export interface ButtonProps
-  extends React.ComponentProps<"button">,
-    ButtonVarinat {}
+export type ButtonVarinat = VariantProps<typeof buttonStyle>;
+export interface ButtonProps extends ButtonPrimitiveProps, ButtonVarinat {}
 
 export default function Button({
   variant = "default",
@@ -14,35 +19,37 @@ export default function Button({
   ...props
 }: ButtonProps) {
   return (
-    <button
+    <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariant({ variant, size, className }))}
+      className={composeRenderProps(className, (className, renderProps) =>
+        twmx(buttonStyle({ ...renderProps, variant, size, className }))
+      )}
       {...props}
     />
   );
 }
 
-export const buttonVariant = tv({
+export const buttonStyle = tv({
   base: [
-    "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-white [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium outline-none transition focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    ,
   ],
   variants: {
     variant: {
-      default:
-        "bg-neutral-950 text-white shadow-sm shadow-black/20 hover:bg-neutral-950/90 dark:bg-white dark:text-neutral-950 dark:hover:bg-white/90",
-      destructive: "bg-red-600 text-white shadow-md hover:bg-red-600/90",
+      default: "bg-primary text-primary-foreground hover:bg-primary/90",
+      destructive:
+        "bg-destructive hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 text-white",
       outline:
-        "border border-transparent bg-white shadow-sm shadow-black/15 ring-1 ring-neutral-950/10 duration-200 hover:bg-neutral-100/50 dark:bg-neutral-950 dark:ring-white/15 dark:hover:bg-neutral-800/50",
-      secondary:
-        "bg-neutral-100 text-neutral-950 shadow-sm hover:bg-neutral-100/80 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-800/80",
+        "bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 border",
+      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
       ghost:
-        "hover:bg-neutral-100 hover:text-neutral-950 dark:hover:bg-neutral-800 dark:hover:text-white",
-      link: "text-neutral-950 underline-offset-4 hover:underline dark:text-white",
+        "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+      link: "text-primary underline-offset-4 hover:underline",
     },
     size: {
       sm: "h-8 rounded-md px-3 text-xs",
-      md: "h-9 px-4 py-2",
-      lg: "h-10 rounded-md px-8",
+      md: "h-9 px-4 py-2 text-sm",
+      lg: "h-10 rounded-md px-8 text-sm",
     },
   },
 });

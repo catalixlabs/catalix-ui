@@ -19,10 +19,10 @@ const isActive = (url: string, pathname: string, nested = true) => {
 export default function Sidebar({ tree }: { tree: PageTree.Root }) {
   return (
     <aside
-      className="sticky top-16 hidden w-full max-w-64 shrink-0 lg:block"
-      style={{ height: "calc(100svh - 64px)" }}
+      className="border-border sticky top-14 hidden w-full max-w-64 shrink-0 overflow-y-auto border-r border-dashed lg:block"
+      style={{ height: "calc(100vh - 56px)" }}
     >
-      <nav className="flex h-full flex-col overflow-y-auto p-4">
+      <nav className="flex flex-col py-6">
         <Tree tree={tree} />
       </nav>
     </aside>
@@ -73,7 +73,7 @@ const Tree = ({ tree }: { tree: PageTree.Root }) => {
   return (
     <ul className="flex flex-col gap-2 text-sm">
       {tree.children.map((item) => (
-        <TreeItem key={item.$id} item={item} />
+        <TreeItem key={item.$id + item.type} item={item} />
       ))}
     </ul>
   );

@@ -1,34 +1,34 @@
 "use client";
 
 import * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
 import {
-  Button as ButtonPrimitive,
-  ButtonProps as ButtonPrimitiveProps,
+  Link as LinkPrimitive,
+  LinkProps as LinkPrimitiveProps,
   composeRenderProps,
 } from "react-aria-components";
+import { tv, type VariantProps } from "tailwind-variants";
 import { twmx } from "twmx";
 
-export type ButtonVarinat = VariantProps<typeof buttonStyle>;
-export interface ButtonProps extends ButtonPrimitiveProps, ButtonVarinat {}
+type LinkVariants = VariantProps<typeof linkStyle>;
+interface LinkProps extends LinkPrimitiveProps, LinkVariants {}
 
-export default function Button({
-  variant = "default",
+export default function Link({
+  variant = "link",
   size = "md",
   className,
   ...props
-}: ButtonProps) {
+}: LinkProps) {
   return (
-    <ButtonPrimitive
-      className={composeRenderProps(className, (className, renderProps) =>
-        twmx(buttonStyle({ ...renderProps, variant, size, className }))
+    <LinkPrimitive
+      className={composeRenderProps(className, (className) =>
+        twmx(linkStyle({ variant, size, className }))
       )}
       {...props}
     />
   );
 }
 
-export const buttonStyle = tv({
+export const linkStyle = tv({
   base: [
     "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium outline-none transition focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     ,

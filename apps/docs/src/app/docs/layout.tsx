@@ -7,17 +7,19 @@ import Header from "@/components/[docs]/Header";
 export default function Layout({ children }: LayoutProps<"/docs">) {
   return (
     <NextMDXProvider>
-      <div className="bg-background relative z-10 flex min-h-svh flex-col">
-        <Header />
-        <main className="flex flex-1 flex-col">
-          <div className="max-w-8xl border-border mx-auto flex w-full flex-1 flex-col border-x border-dotted">
-            <div className="flex min-h-min flex-1 items-start">
-              <Sidebar tree={source.pageTree} />
-              <div className="h-full w-full">{children}</div>
+      <div className="bg-background relative flex min-h-svh flex-col">
+        <div className="border-grid flex h-full flex-1 flex-col">
+          <Header />
+          <div className="flex h-full flex-1 flex-col">
+            <div className="max-w-8xl border-border mx-auto w-full border-x border-dashed">
+              <div className="flex h-full w-full flex-1 items-start px-4">
+                <Sidebar tree={source.pageTree} />
+                <main className="relative flex flex-1">{children}</main>
+              </div>
             </div>
           </div>
-        </main>
-        <Footer />
+          <Footer />
+        </div>
       </div>
     </NextMDXProvider>
   );
