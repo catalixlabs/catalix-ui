@@ -1,10 +1,7 @@
 {
   "name": "button",
   "type": "registry:core",
-  "dependencies": [
-    "tailwind-variants",
-    "twmx"
-  ],
+  "dependencies": ["tailwind-variants", "twmx"],
   "files": [
     {
       "path": "src/registry/react/core/button.tsx",
