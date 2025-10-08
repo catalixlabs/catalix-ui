@@ -1,0 +1,75 @@
+---
+title: CLI
+description: Use the Catalix CLI to manage the components in your project.
+---
+
+## init
+
+Use the `init` command to initialize configuration and dependencies for a new project.
+
+The `init` command adds all necessary files and installs required dependencies and devDependencies, providing a ready-to-use starting point for your project.
+
+```package-install
+npx @catalix/cli@latest init
+```
+
+### Options
+
+```bash
+Usage: catalix/cli init [options]
+
+initialize your project and install dependencies
+
+Options:
+  -c, --cwd <cwd>     the working directory. defaults to the current directory.
+  -h, --help          display help for command
+```
+
+## add
+
+Use the `add` command to add components and dependencies to your project.
+
+```package-install
+npx catalix/cli@latest add [component]
+```
+
+You can also run the command without specifying a component to be prompted with a list of all available components.
+
+```package-install
+npx catalix/cli@latest add
+```
+
+When running without arguments, you'll see an interactive prompt where you can select the components you want to add:
+
+```txt
+Which components would you like to add? > Space to select. A to toggle all.
+Enter to submit.
+
+◯  accordion
+◯  alert
+◯  alert-dialog
+◯  aspect-ratio
+◯  avatar
+◯  badge
+◯  button
+◯  calendar
+◯  card
+◯  checkbox
+```
+
+### Options
+
+```bash
+Usage: catalix/cli add [options] [components...]
+
+Add one or more components to your project.
+
+Arguments:
+  components         name of the to component
+
+Options:
+  -o, --overwrite     overwrite existing files. (default: false)
+  -c, --cwd <cwd>     the working directory. defaults to the current directory.
+  -a, --all           add all available components (default: false)
+  -h, --help          display help for command
+```

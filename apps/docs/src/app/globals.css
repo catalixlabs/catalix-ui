@@ -1,13 +1,16 @@
 @import "tailwindcss";
 @plugin "tailwind-scrollbar";
+@import "tw-animate-css";
+/* @plugin "tailwindcss-react-aria-components"; */
 @import "fumadocs-ui/css/preset.css";
+@import "fumadocs-ui/css/neutral.css";
 
 :root {
-  --background: var(--color-white);
+  --background: var(--color-neutral-50);
   --foreground: var(--color-neutral-950);
-  --card: var(--color-white);
+  --card: var(--color-neutral-50);
   --card-foreground: var(--color-neutral-950);
-  --popover: var(--color-white);
+  --popover: var(--color-neutral-50);
   --popover-foreground: var(--color-neutral-950);
   --primary: var(--color-neutral-900);
   --primary-foreground: var(--color-neutral-50);
@@ -17,21 +20,20 @@
   --muted-foreground: var(--color-neutral-500);
   --accent: var(--color-neutral-100);
   --accent-foreground: var(--color-neutral-900);
-  --destructive: var(--color-red-500);
-  --destructive-foreground: var(--color-neutral-50);
+  --destructive: var(--color-red-600);
   --border: var(--color-neutral-200);
   --input: var(--color-neutral-200);
-  --ring: var(--color-neutral-950);
+  --ring: var(--color-neutral-400);
 }
 
 [data-theme="dark"] {
   --background: var(--color-neutral-950);
   --foreground: var(--color-neutral-50);
-  --card: var(--color-neutral-950);
+  --card: var(--color-neutral-900);
   --card-foreground: var(--color-neutral-50);
-  --popover: var(--color-neutral-950);
+  --popover: var(--color-neutral-900);
   --popover-foreground: var(--color-neutral-50);
-  --primary: var(--color-neutral-50);
+  --primary: var(--color-neutral-200);
   --primary-foreground: var(--color-neutral-900);
   --secondary: var(--color-neutral-800);
   --secondary-foreground: var(--color-neutral-50);
@@ -39,11 +41,10 @@
   --muted-foreground: var(--color-neutral-400);
   --accent: var(--color-neutral-800);
   --accent-foreground: var(--color-neutral-50);
-  --destructive: var(--color-red-900);
-  --destructive-foreground: var(--color-neutral-50);
-  --border: var(--color-neutral-800);
-  --input: var(--color-neutral-800);
-  --ring: var(--color-neutral-300);
+  --destructive: var(--color-red-400);
+  --border: color-mix(in oklch, var(--color-white) 10%, transparent);
+  --input: color-mix(in oklch, var(--color-white) 15%, transparent);
+  --ring: var(--color-neutral-500);
 }
 
 @theme inline {
@@ -64,36 +65,16 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-fd-background: var(--background);
-  --color-fd-foreground: var(--foreground);
-  --color-fd-card: var(--card);
-  --color-fd-card-foreground: var(--card-foreground);
-  --color-fd-popover: var(--popover);
-  --color-fd-popover-foreground: var(--popover-foreground);
-  --color-fd-primary: var(--primary);
-  --color-fd-primary-foreground: var(--primary-foreground);
-  --color-fd-secondary: var(--secondary);
-  --color-fd-secondary-foreground: var(--secondary-foreground);
-  --color-fd-muted: var(--muted);
-  --color-fd-muted-foreground: var(--muted-foreground);
-  --color-fd-accent: var(--accent);
-  --color-fd-accent-foreground: var(--accent-foreground);
-  --color-fd-destructive: var(--destructive);
-  --color-fd-destructive-foreground: var(--destructive-foreground);
-  --color-fd-border: var(--border);
-  --color-fd-input: var(--input);
-  --color-fd-ring: var(--ring);
+  --container-8xl: 1440px;
 }
 
 @utility prose {
-  --tw-prose-body: var(--color-muted-foreground);
+  --tw-prose-body: var(--color-foreground);
   --tw-prose-headings: var(--color-foreground);
   --tw-prose-lead: var(--color-foreground);
   --tw-prose-links: var(--color-foreground);
@@ -110,7 +91,7 @@
   --tw-prose-th-borders: var(--color-border);
   --tw-prose-td-borders: var(--color-border);
 
-  --tw-prose-invert-body: var(--color-muted-foreground);
+  --tw-prose-invert-body: var(--color-foreground);
   --tw-prose-invert-headings: var(--color-foreground);
   --tw-prose-invert-lead: var(--color-foreground);
   --tw-prose-invert-links: var(--color-foreground);
@@ -126,4 +107,8 @@
   --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
   --tw-prose-invert-th-borders: var(--color-border);
   --tw-prose-invert-td-borders: var(--color-border);
+}
+
+.prose a {
+  text-decoration: none;
 }

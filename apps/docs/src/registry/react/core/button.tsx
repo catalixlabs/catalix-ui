@@ -1,48 +1,57 @@
-import * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
-import { cn } from "@/registry/react/utils/cn";
+"use client";
 
-export type ButtonVarinat = VariantProps<typeof buttonVariant>;
+import * as React from "react";
+import * as SlotPrimitive from "@radix-ui/react-slot";
+import { tv, type VariantProps } from "tailwind-variants";
+import { twmx } from "twmx";
+
+export type ButtonVarinat = VariantProps<typeof buttonVariants>;
 export interface ButtonProps
   extends React.ComponentProps<"button">,
-    ButtonVarinat {}
+    ButtonVarinat {
+  asChild?: boolean;
+}
 
 export default function Button({
-  variant = "default",
+  variant = "primary",
   size = "md",
+  width = "auto",
+  asChild,
   className,
   ...props
 }: ButtonProps) {
+  const Comp = asChild ? SlotPrimitive.Slot : "button";
+
   return (
-    <button
+    <Comp
       data-slot="button"
-      className={cn(buttonVariant({ variant, size, className }))}
+      className={twmx(buttonVariants({ variant, size, width, className }))}
       {...props}
     />
   );
 }
 
-export const buttonVariant = tv({
+export const buttonVariants = tv({
   base: [
-    "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-white [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "relative isolate inline-flex cursor-pointer items-center justify-center gap-x-2 rounded-md border border-transparent px-3.5 py-2.5 text-base/6 font-medium disabled:pointer-events-none disabled:opacity-50 sm:px-3 sm:py-1.5 sm:text-sm/6 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   ],
   variants: {
     variant: {
-      default:
-        "bg-neutral-950 text-white shadow-sm shadow-black/20 hover:bg-neutral-950/90 dark:bg-white dark:text-neutral-950 dark:hover:bg-white/90",
-      destructive: "bg-red-600 text-white shadow-md hover:bg-red-600/90",
-      outline:
-        "border border-transparent bg-white shadow-sm shadow-black/15 ring-1 ring-neutral-950/10 duration-200 hover:bg-neutral-100/50 dark:bg-neutral-950 dark:ring-white/15 dark:hover:bg-neutral-800/50",
+      primary:
+        "after:inset-shadow-2xs after:inset-shadow-white/15 bg-neutral-700/90 text-white before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-neutral-600 before:shadow-sm after:absolute after:inset-0 after:-z-10 after:rounded-md hover:bg-neutral-700 hover:after:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-neutral-700 active:after:bg-white/10 disabled:before:shadow-none disabled:after:shadow-none dark:border-white/5 dark:bg-neutral-600 dark:before:hidden dark:after:-inset-px dark:after:rounded-md dark:hover:after:bg-white/5 dark:active:after:bg-white/5",
       secondary:
-        "bg-neutral-100 text-neutral-950 shadow-sm hover:bg-neutral-100/80 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-800/80",
-      ghost:
-        "hover:bg-neutral-100 hover:text-neutral-950 dark:hover:bg-neutral-800 dark:hover:text-white",
-      link: "text-neutral-950 underline-offset-4 hover:underline dark:text-white",
+        "after:inset-shadow-2xs after:inset-shadow-white/15 bg-neutral-950/90 text-white before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-neutral-900 before:shadow-sm after:absolute after:inset-0 after:-z-10 after:rounded-md hover:bg-neutral-950 hover:after:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-neutral-950 active:after:bg-white/10 disabled:before:shadow-none disabled:after:shadow-none dark:border-white/5 dark:bg-neutral-800 dark:before:hidden dark:after:-inset-px dark:after:rounded-md dark:hover:after:bg-white/5 dark:active:after:bg-white/5",
+      destruct:
+        "after:inset-shadow-2xs after:inset-shadow-white/15 bg-red-600 text-white before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-red-600 before:shadow-sm after:absolute after:inset-0 after:-z-10 after:rounded-md hover:bg-red-700 hover:after:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-red-700 active:after:bg-white/10 disabled:before:shadow-none disabled:after:shadow-none dark:border-white/5 dark:bg-red-600 dark:before:hidden dark:after:-inset-px dark:after:rounded-md dark:hover:after:bg-white/5 dark:active:after:bg-white/5",
+    },
+    width: {
+      full: "w-full",
+      auto: "w-auto",
     },
     size: {
-      sm: "h-8 rounded-md px-3 text-xs",
-      md: "h-9 px-4 py-2",
-      lg: "h-10 rounded-md px-8",
+      sm: "h-8",
+      md: "h-9",
+      lg: "h-10",
     },
   },
 });

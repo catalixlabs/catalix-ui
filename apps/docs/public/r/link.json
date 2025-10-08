@@ -1,0 +1,19 @@
+{
+  "name": "link",
+  "type": "registry:core",
+  "dependencies": [
+    "tailwind-merge",
+    "clsx",
+    "tailwind-variants",
+    "react-aria-components",
+    "twmx"
+  ],
+  "files": [
+    {
+      "path": "src/registry/react/core/link.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport {\n  Link as LinkPrimitive,\n  LinkProps as LinkPrimitiveProps,\n  composeRenderProps,\n} from \"react-aria-components\";\nimport { tv, type VariantProps } from \"tailwind-variants\";\nimport { twmx } from \"twmx\";\n\ntype LinkVariants = VariantProps<typeof linkStyle>;\ninterface LinkProps extends LinkPrimitiveProps, LinkVariants {}\n\nexport default function Link({\n  variant = \"primary\",\n  size = \"md\",\n  className,\n  ...props\n}: LinkProps) {\n  return (\n    <LinkPrimitive\n      className={composeRenderProps(className, (className) =>\n        twmx(linkStyle({ variant, size, className }))\n      )}\n      {...props}\n    />\n  );\n}\n\nconst baseStyle = tv({\n  base: [\n    \"relative isolate inline-flex cursor-pointer items-center justify-center gap-x-2 rounded-md border border-transparent px-3.5 py-2.5 text-base/6 font-medium disabled:pointer-events-none disabled:opacity-50 sm:px-3 sm:py-1.5 sm:text-sm/6 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0\",\n  ],\n});\n\nexport const linkStyle = tv({\n  extend: baseStyle,\n  variants: {\n    variant: {\n      primary:\n        \"after:inset-shadow-2xs after:inset-shadow-white/15 bg-neutral-700/90 text-white before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-neutral-600 before:shadow-sm after:absolute after:inset-0 after:-z-10 after:rounded-md hover:bg-neutral-700 hover:after:bg-white/10 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 active:bg-neutral-700 active:after:bg-white/10 disabled:before:shadow-none disabled:after:shadow-none dark:border-white/5 dark:bg-neutral-600 dark:before:hidden dark:after:-inset-px dark:after:rounded-md dark:hover:after:bg-white/5 dark:active:after:bg-white/5\",\n      secondary:\n        \"after:inset-shadow-2xs after:inset-shadow-white/15 bg-neutral-950/90 text-white before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-neutral-900 before:shadow-sm after:absolute after:inset-0 after:-z-10 after:rounded-md hover:bg-neutral-950 hover:after:bg-white/10 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 active:bg-neutral-950 active:after:bg-white/10 disabled:before:shadow-none disabled:after:shadow-none dark:border-white/5 dark:bg-neutral-800 dark:before:hidden dark:after:-inset-px dark:after:rounded-md dark:hover:after:bg-white/5 dark:active:after:bg-white/5\",\n      destruct:\n        \"after:inset-shadow-2xs after:inset-shadow-white/15 bg-red-700/90 text-white after:absolute after:inset-0 after:-z-10 after:rounded-md hover:after:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:after:bg-white/15 disabled:before:shadow-none disabled:after:shadow-none dark:border-white/5 dark:bg-red-600 dark:before:hidden dark:after:-inset-px dark:after:rounded-md\",\n    },\n    size: {\n      sm: \"h-8 rounded-md px-3 text-xs\",\n      md: \"h-9 px-4 py-2 text-sm\",\n      lg: \"h-10 rounded-md px-8 text-sm\",\n    },\n  },\n});\n",
+      "type": "registry:core",
+      "target": "components/core/link.tsx"
+    }
+  ]
+}

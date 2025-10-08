@@ -20,13 +20,11 @@ export default function Installer() {
       <span className="pointer-events-none shrink-0 select-none text-neutral-500 dark:text-neutral-400">
         $
       </span>
-      <div className="flex-1 truncate text-left font-mono text-fuchsia-950 dark:text-fuchsia-100">
-        {command}
-      </div>
+      <div className="flex-1 truncate text-left font-mono">{command}</div>
       <div className="flex shrink-0 items-center gap-2">
         <Button
+          variant="secondary"
           aria-label="Copy"
-          variant="ghost"
           disabled={copied}
           onClick={handleCopy}
           className="size-8 p-0"

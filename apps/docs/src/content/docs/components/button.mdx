@@ -1,0 +1,84 @@
+---
+title: Button
+description: Button component with variants and sizes.
+---
+
+## Installation
+
+```package-install
+npx @catalix/cli@latest add button
+```
+
+## Usage
+
+```tsx title="page.tsx" lineNumbers
+import Button from "@/components/core/button"; //[!code ++]
+
+export default function Example() {
+  return <Button>Click me</Button>; //[!code ++]
+}
+```
+
+## Examples
+
+### Variants
+
+<div className="flex flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
+  <DemoButton>Primary</DemoButton>
+  <DemoButton variant="secondary">Secondary</DemoButton>
+  <DemoButton variant="destruct">Destruct</DemoButton>
+</div>
+
+### Sizes
+
+<div className="flex flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
+  <DemoButton size="sm">Small</DemoButton>
+  <DemoButton>Medium</DemoButton>
+  <DemoButton size="lg">Large</DemoButton>
+</div>
+
+### Width
+
+<div className="flex flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
+  <DemoButton>Auto</DemoButton>
+  <DemoButton width="full">Full</DemoButton>
+</div>
+
+### Link
+
+You can use the `asChild` prop to make another component look like a button. Here's an example of a link that looks like a button.
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <DemoButton asChild>
+        <Link href="https://catalix-ui.vercel.app" target="_blank">Hi</Link>
+    </DemoButton>
+  </Tab>
+  <Tab value="Code">
+
+```tsx lineNumbers
+// [!code word:asChild]
+import { Link } from "next/link";
+import Button from "@/components/core/button";
+
+export default function Page() {
+  return (
+    <Button asChild>
+      <Link href="/">Login</Link>
+    </Button>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
+
+## API Reference
+
+The Button component accepts all standard button props, plus additional custom props.
+
+| Prop    | Type                                         | Default   | Description                            |
+| ------- | -------------------------------------------- | --------- | -------------------------------------- |
+| variant | `"primary"` \| `"destruct"` \| `"secondary"` | `primary` | Defines the visual style of the button |
+| size    | `"sm"` \| `"md"` \| `"lg"`                   | `md`      | Controls the button size               |
+| width   | `"auto"` \| `"full"`                         | `auto`    | Controls the length of the button      |

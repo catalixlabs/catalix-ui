@@ -22,7 +22,12 @@ const config = {
     return [
       {
         source: "/docs",
-        destination: "/docs/get-started/introduction",
+        destination: "/docs/introduction",
+        permanent: true,
+      },
+      {
+        source: "/docs/components",
+        destination: "/docs/components/button",
         permanent: true,
       },
     ];

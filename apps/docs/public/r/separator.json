@@ -2,12 +2,16 @@
   "name": "separator",
   "type": "registry:core",
   "dependencies": [
-    "@radix-ui/react-separator"
+    "tailwind-merge",
+    "clsx",
+    "tailwind-variants",
+    "react-aria-components",
+    "twmx"
   ],
   "files": [
     {
       "path": "src/registry/react/core/separator.tsx",
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport * as SeparatorPrimitive from \"@radix-ui/react-separator\";\nimport { tv } from \"tailwind-variants\";\nimport { cn } from \"@/registry/react/utils/cn\";\n\nexport default function Separator({\n  className,\n  orientation = \"horizontal\",\n  decorative = true,\n  ...props\n}: React.ComponentProps<typeof SeparatorPrimitive.Root>) {\n  return (\n    <SeparatorPrimitive.Root\n      data-slot=\"separator\"\n      decorative={decorative}\n      orientation={orientation}\n      className={cn(separtorVariants({ orientation, className }))}\n      {...props}\n    />\n  );\n}\n\nexport const separtorVariants = tv({\n  base: \"pointer-events-none shrink-0 bg-zinc-200 dark:bg-zinc-800\",\n  variants: {\n    orientation: {\n      horizontal: \"h-px w-full\",\n      vertical: \"h-full w-px\",\n    },\n  },\n});\n",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport {\n  Separator as SeparatorPrimitive,\n  type SeparatorProps as SeparatorPrimitiveProps,\n} from \"react-aria-components\";\nimport { tv, VariantProps } from \"tailwind-variants\";\nimport { twmx } from \"twmx\";\n\ntype SeparatorVariants = VariantProps<typeof separatorVariants>;\ninterface SeparatorProps extends SeparatorPrimitiveProps, SeparatorVariants {}\n\nexport default function Separator({\n  orientation = \"horizontal\",\n  className,\n  ...props\n}: SeparatorProps) {\n  return (\n    <SeparatorPrimitive\n      orientation={orientation}\n      className={twmx(separatorVariants({ orientation, className }))}\n      {...props}\n    />\n  );\n}\n\nexport const separatorVariants = tv({\n  base: \"pointer-events-none shrink-0 bg-neutral-200 dark:bg-neutral-800\",\n  variants: {\n    orientation: {\n      horizontal: \"h-px w-full\",\n      vertical: \"h-full w-px\",\n    },\n  },\n});\n",
       "type": "registry:core",
       "target": "components/core/separator.tsx"
     }

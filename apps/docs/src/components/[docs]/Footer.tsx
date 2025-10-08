@@ -1,40 +1,17 @@
 import React from "react";
-import { findNeighbour } from "fumadocs-core/server";
-import { source } from "@/lib/source";
-import Link from "next/link";
 
-export default function Footer({ path }: { path: string }) {
-  const pageTree = source.pageTree;
-  const neighbours = findNeighbour(pageTree, path);
-
+export default function Footer() {
   return (
-    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-      {neighbours?.previous?.url && (
-        <Link
-          href={neighbours?.previous?.url}
-          className="hover:bg-accent/80 hover:text-accent-foreground border-border flex flex-col gap-2 rounded-lg border p-4 text-sm transition-colors md:col-start-1"
-        >
-          <div className="inline-flex items-center gap-1.5 font-medium">
-            <span className="text-foreground">{neighbours.previous.name}</span>
+    <footer className="relative">
+      <div className="max-w-8xl border-border mx-auto w-full border border-x border-dashed">
+        <div className="w-full px-4">
+          <div className="flex min-h-14 items-center">
+            <p className="text-foreground text-sm">
+              &copy; Catalix UI {new Date().getFullYear()}
+            </p>
           </div>
-          <p className="text-muted-foreground truncate">
-            {neighbours.previous.description}
-          </p>
-        </Link>
-      )}
-      {neighbours?.next?.url && (
-        <Link
-          href={neighbours?.next?.url}
-          className="hover:bg-accent/80 hover:text-accent-foreground border-border flex flex-col gap-2 rounded-lg border p-4 text-end text-sm transition-colors md:col-start-2"
-        >
-          <div className="inline-flex flex-row-reverse items-center gap-1.5 font-medium">
-            <span className="text-foreground">{neighbours.next.name}</span>
-          </div>
-          <p className="text-muted-foreground truncate">
-            {neighbours.next.description}
-          </p>
-        </Link>
-      )}
-    </div>
+        </div>
+      </div>
+    </footer>
   );
 }

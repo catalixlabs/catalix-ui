@@ -4,18 +4,19 @@ import Link from "next/link";
 const menu = [
   { label: "Documentation", path: "/docs" },
   { label: "Components", path: "/docs/components" },
-  { label: "Blocks", path: "/docs/blocks" },
-  { label: "Pricing", path: "/pricing" },
   { label: "Changelog", path: "/changelog" },
 ];
 
 export default function Navigation() {
   return (
-    <nav className="relative hidden lg:flex items-center justify-end flex-1">
-      <ul className="flex flex-row gap-1 text-sm">
+    <nav className="relative hidden flex-1 items-center justify-end lg:flex">
+      <ul className="flex flex-row gap-2">
         {menu.map((_, i) => (
           <li key={i} className="relative">
-            <Link href={_.path} className="flex items-center px-3">
+            <Link
+              href={_.path}
+              className="flex items-center px-3 text-sm/6 text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
+            >
               {_.label}
             </Link>
           </li>

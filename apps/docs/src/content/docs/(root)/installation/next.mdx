@@ -1,0 +1,43 @@
+---
+title: Next.js
+description: Install and configure Catalix UI for Next.js.
+---
+
+The quickest way to create a new Next.js app is using [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app), which sets up everything automatically for you.
+
+The command below automatically scaffolds a new Next.js project using the App Router, with TypeScript, Tailwind CSS, and the default import alias - The import alias is used to simplify and standardize imports across your project, making it easier to reference files without long relative paths.
+
+You can skip this step if you already have a Next.js app configured.
+
+```package-install
+npx create-next-app@latest [project-name] --app --yes
+```
+
+## Initialize Configuration
+
+Run the `init` command inside a **Next.js** project to initialize a catalix config.
+
+```package-install
+npx @catalix/cli@latest init
+```
+
+## Add Components
+
+Run the `add` command to add components from registry to your project.
+
+```package-install
+npx @catalix/cli@latest add button
+```
+
+The command above will add the Button component to your project. You can then import it like this:
+
+```tsx title="app/page.tsx" lineNumbers
+import * as React from "react";
+import Button from "@/components/core/button"; // [!code ++]
+
+export default function Page() {
+  return (
+    <Button>Text</Button> // [!code ++]
+  );
+}
+```

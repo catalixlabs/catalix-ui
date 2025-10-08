@@ -1,21 +1,28 @@
-import { defineConfig, defineDocs } from "fumadocs-mdx/config";
+import {
+  defineConfig,
+  defineDocs,
+  frontmatterSchema,
+} from "fumadocs-mdx/config";
+import { z } from "zod";
 
 export const docs = defineDocs({
-  dir: "./src/contents/docs",
+  dir: "./src/content/docs",
+  docs: {
+    schema: frontmatterSchema.extend({
+      links: z
+        .object({
+          doc: z.string().optional(),
+          api: z.string().optional(),
+        })
+        .optional(),
+    }),
+  },
 });
 
 export default defineConfig({
   mdxOptions: {
-    rehypeCodeOptions: {
-      themes: {
-        light: "catppuccin-latte",
-        dark: "catppuccin-mocha",
-      },
-    },
     remarkNpmOptions: {
-      persist: {
-        id: "package-manager",
-      },
+      persist: { id: "pm" },
     },
   },
 });

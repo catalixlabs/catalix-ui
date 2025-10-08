@@ -8,15 +8,15 @@ function chunkArray<T>(arr: T[], size: number) {
 
 export default function Components() {
   const items = [...Array(12)]; // can be any length
-  const rows = chunkArray(items, 3); // group into 3s
+  const rows = chunkArray(items, 4); // group into N's
 
   return (
-    <section className="border-border relative border-b border-dashed">
-      <div className="border-border mx-auto w-full max-w-6xl border-x border-dashed">
-        <div className="mx-auto w-full max-w-6xl px-4">
+    <section className="relative border-b border-dashed border-neutral-950/10 dark:border-white/10">
+      <div className="max-w-8xl mx-auto w-full border-x border-dashed border-neutral-950/10 dark:border-white/10">
+        <div className="max-w-8xl mx-auto w-full px-4">
           <div className="relative py-24">
             <div className="mx-auto flex max-w-md flex-col items-center gap-4 pb-12 text-center">
-              <h2 className="text-balance text-4xl tracking-tighter sm:text-5xl">
+              <h2 className="text-balance text-4xl tracking-tighter text-neutral-950 sm:text-5xl dark:text-white">
                 Components
               </h2>
               <p className="text-muted-foreground">
@@ -28,7 +28,7 @@ export default function Components() {
               {rows.map((r, ri) => (
                 <div
                   key={ri}
-                  className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                  className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
                 >
                   {r.map((_, i) => (
                     <div
@@ -36,7 +36,7 @@ export default function Components() {
                       className="border-border relative flex flex-col gap-2 border p-2"
                     >
                       <div className="border-border bg-card min-h-56 border"></div>
-                      <div className="border-border relative border-t p-2">
+                      <div className="relative">
                         <div className="flex flex-wrap items-center">
                           <h2 className="text-sm/6 font-medium">
                             Component {i + 1}
