@@ -10,12 +10,12 @@ const menu = [
 export default function Navigation() {
   return (
     <nav className="relative hidden flex-1 items-center justify-end lg:flex">
-      <ul className="flex flex-row gap-1 text-sm">
+      <ul className="flex flex-row gap-2">
         {menu.map((_, i) => (
           <li key={i} className="relative">
             <Link
               href={_.path}
-              className="text-muted-foreground hover:text-foreground flex items-center px-3"
+              className="flex items-center px-3 text-sm/6 text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
             >
               {_.label}
             </Link>

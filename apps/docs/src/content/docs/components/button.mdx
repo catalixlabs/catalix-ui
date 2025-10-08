@@ -1,9 +1,6 @@
 ---
 title: Button
 description: Button component with variants and sizes.
-links:
-  doc: https://react-spectrum.adobe.com/react-aria/Button.html
-  api: https://react-spectrum.adobe.com/react-aria/Button.html#props
 ---
 
 ## Installation
@@ -26,33 +23,62 @@ export default function Example() {
 
 ### Variants
 
-<div className="flex flex-col flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
-  <DemoButton variant="default">Default Button</DemoButton>
-  <DemoButton variant="secondary">Secondary Button</DemoButton>
-  <DemoButton variant="link">Link Button</DemoButton>
-  <DemoButton variant="outline">Outline Button</DemoButton>
-  <DemoButton variant="ghost">Ghost Button</DemoButton>
-  <DemoButton variant="destructive">Destructive Button</DemoButton>
+<div className="flex flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
+  <DemoButton>Primary</DemoButton>
+  <DemoButton variant="secondary">Secondary</DemoButton>
+  <DemoButton variant="destruct">Destruct</DemoButton>
 </div>
 
 ### Sizes
 
-<div className="flex flex-col flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
-  <DemoButton variant="outline" size="sm">
-    Outline Button
-  </DemoButton>
-  <DemoButton variant="outline" size="md">
-    Outline Button
-  </DemoButton>
-  <DemoButton variant="outline" size="lg">
-    Outline Button
-  </DemoButton>
+<div className="flex flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
+  <DemoButton size="sm">Small</DemoButton>
+  <DemoButton>Medium</DemoButton>
+  <DemoButton size="lg">Large</DemoButton>
 </div>
+
+### Width
+
+<div className="flex flex-wrap items-center justify-center gap-4 rounded-xl border p-8">
+  <DemoButton>Auto</DemoButton>
+  <DemoButton width="full">Full</DemoButton>
+</div>
+
+### Link
+
+You can use the `asChild` prop to make another component look like a button. Here's an example of a link that looks like a button.
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <DemoButton asChild>
+        <Link href="https://catalix-ui.vercel.app" target="_blank">Hi</Link>
+    </DemoButton>
+  </Tab>
+  <Tab value="Code">
+
+```tsx lineNumbers
+// [!code word:asChild]
+import { Link } from "next/link";
+import Button from "@/components/core/button";
+
+export default function Page() {
+  return (
+    <Button asChild>
+      <Link href="/">Login</Link>
+    </Button>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
 
 ## API Reference
 
-| Prop     | Type                                                                                    | Default   | Description                            |
-| -------- | --------------------------------------------------------------------------------------- | --------- | -------------------------------------- |
-| variant  | `"default"` \| `"destructive"` \| `"outline"` \| `"secondary"` \| `"ghost"` \| `"link"` | `default` | Defines the visual style of the button |
-| size     | `"sm"` \| `"md"` \| `"lg"`                                                              | `md`      | Controls the button size               |
-| ...props | `ButtonPrimitiveProps`                                                                  | \_        | All standard button props              |
+The Button component accepts all standard button props, plus additional custom props.
+
+| Prop    | Type                                         | Default   | Description                            |
+| ------- | -------------------------------------------- | --------- | -------------------------------------- |
+| variant | `"primary"` \| `"destruct"` \| `"secondary"` | `primary` | Defines the visual style of the button |
+| size    | `"sm"` \| `"md"` \| `"lg"`                   | `md`      | Controls the button size               |
+| width   | `"auto"` \| `"full"`                         | `auto`    | Controls the length of the button      |

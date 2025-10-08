@@ -1,6 +1,9 @@
 import type { HTMLAttributes } from "react";
 import type { MDXComponents } from "mdx/types";
 import defaultComponents from "fumadocs-ui/mdx";
+import * as TabsComponents from "fumadocs-ui/components/tabs";
+import * as DynamicLink from "fumadocs-core/dynamic-link";
+import Link from "fumadocs-core/link";
 import { Heading } from "@/mdx/components/heading";
 
 import DemoButton from "@/components/core/button";
@@ -29,6 +32,9 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ),
     DemoButton,
     DemoSeparator,
+    ...TabsComponents,
+    ...DynamicLink,
+    Link,
     ...components,
   };
 }

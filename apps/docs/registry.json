@@ -6,13 +6,7 @@
     {
       "name": "button",
       "type": "registry:core",
-      "dependencies": [
-        "tailwind-merge",
-        "clsx",
-        "tailwind-variants",
-        "react-aria-components",
-        "twmx"
-      ],
+      "dependencies": ["tailwind-variants", "twmx"],
       "files": [
         {
           "path": "src/registry/react/core/button.tsx",

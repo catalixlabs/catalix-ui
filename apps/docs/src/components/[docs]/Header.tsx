@@ -9,7 +9,10 @@ export default function Header() {
       <div className="max-w-8xl border-border mx-auto w-full border-x border-dashed">
         <div className="w-full px-4">
           <div className="flex h-full min-h-14 items-center justify-between">
-            <Link href="/" className="text-foreground flex items-center gap-2">
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-neutral-950 dark:text-white"
+            >
               <Catalix className="size-4" />
               <span className="text-base font-medium">Catalix Docs</span>
             </Link>

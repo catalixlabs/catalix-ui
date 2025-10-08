@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning={true} className={fonts}>
-      <body className="bg-background text-foreground h-full min-h-svh w-full font-sans text-base font-normal antialiased">
+      <body className="h-full min-h-svh w-full bg-white font-sans text-base font-normal text-neutral-600 antialiased dark:bg-neutral-900 dark:text-neutral-400">
         <RouterProvider>
           <ThemeProvider
             enableSystem={true}

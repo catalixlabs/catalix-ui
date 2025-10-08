@@ -7,7 +7,7 @@ import Header from "@/components/[docs]/Header";
 export default function Layout({ children }: LayoutProps<"/docs">) {
   return (
     <NextMDXProvider>
-      <div className="bg-background relative flex min-h-svh flex-col">
+      <div className="relative flex min-h-svh flex-col">
         <div className="border-grid flex h-full flex-1 flex-col">
           <Header />
           <div className="flex h-full flex-1 flex-col">

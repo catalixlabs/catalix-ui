@@ -1,10 +1,14 @@
 {
-  "git.decorations.enabled": true,
+  "git.decorations.enabled": false,
   "eslint.workingDirectories": [{ "mode": "auto" }],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": false,
   "prettier.printWidth": 100,
+  "editor.wordWrap": "bounded",
+  "[mdx]": {
+    "editor.wordWrap": "off"
+  },
   "css.lint.unknownAtRules": "ignore",
   "tailwindCSS.experimental.classRegex": [
     ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
