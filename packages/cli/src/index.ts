@@ -5,13 +5,14 @@ import chalk from "chalk";
 import init from "@/commands/init";
 import build from "@/commands/build";
 import add from "@/commands/add";
+import packageJson from "../package.json";
 
 const program = new Command();
 
 program
   .name("catalix")
   .description(chalk.cyan("CLI for managing Catalix UI components"))
-  .version("0.1.0")
+  .version(packageJson.version || "0.0.0")
   .addCommand(init)
   .addCommand(build)
   .addCommand(add);
