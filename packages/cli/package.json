@@ -1,6 +1,6 @@
 {
   "name": "@catalix/cli",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "CLI for managing Catalix UI components",
   "type": "module",
   "license": "MIT",
