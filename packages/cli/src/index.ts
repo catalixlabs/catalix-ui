@@ -2,6 +2,7 @@
 
 import { Command } from "commander";
 import chalk from "chalk";
+import "dotenv/config";
 import init from "@/commands/init";
 import build from "@/commands/build";
 import add from "@/commands/add";

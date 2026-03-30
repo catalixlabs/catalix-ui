@@ -1,5 +1,5 @@
 {
-  "git.decorations.enabled": false,
+  "git.decorations.enabled": true,
   "eslint.workingDirectories": [{ "mode": "auto" }],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,

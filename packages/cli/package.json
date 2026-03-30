@@ -30,8 +30,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsdown --env.REGISTRY_URL=https://catalix-ui.vercel.app/r",
-    "dev": "tsdown --env.REGISTRY_URL=http://localhost:3000/r --watch",
+    "build": "tsdown --env-file .env",
+    "dev": "tsdown --watch",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && npm publish"

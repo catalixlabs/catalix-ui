@@ -14,7 +14,7 @@ export default function Hero() {
             </h2>
             <p className="mb-6 mt-4 max-w-2xl text-center text-base text-neutral-500 dark:text-neutral-400">
               Catalix UI gives you accessible React components that you fully
-              own and control. Built on top of Radix UI for accessibility and
+              own and control. Built on top of Base UI for accessibility and
               styled with Tailwind CSS for sleek, modern design, every component
               is easy to copy, customize, and make entirely yours.
             </p>

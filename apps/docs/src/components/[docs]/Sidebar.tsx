@@ -54,7 +54,7 @@ const TreeItem = ({ item }: { item: PageTree.Node }) => {
   if (item.type === "folder") {
     return (
       <li className="flex flex-col">
-        <p className="py-2 first:pt-0">{item.name}</p>
+        <p className="py-2 text-white first:pt-0">{item.name}</p>
         {item.children && item.children.length && (
           <ul className="flex flex-col">
             {item.children.map((child) => (
