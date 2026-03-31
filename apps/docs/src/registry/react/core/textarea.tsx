@@ -1,24 +1,24 @@
 import * as React from "react";
-import { tv, type VariantProps } from "tailwind-variants";
-import { cn } from "@/registry/react/utils/cn";
+import { Input as InputPrimitive } from "@base-ui/react/input";
+import { cn, tv, type VariantProps } from "tailwind-variants";
 
-export type TextareVariant = VariantProps<typeof textVariants>;
-export interface InputProps
-  extends React.ComponentProps<"textarea">,
-    TextareVariant {}
+interface TextareaProps
+  extends InputPrimitive.Props,
+    VariantProps<typeof textareaVariants> {}
 
-export default function Textarea({ className, ...props }: InputProps) {
+export default function Textarea({ className, ...props }: TextareaProps) {
   return (
-    <textarea
+    <InputPrimitive
+      render={<textarea />}
       data-slot="textarea"
-      className={cn(textVariants({ className }))}
+      className={cn(textareaVariants({}), className)}
       {...props}
     />
   );
 }
 
-export const textVariants = tv({
+const textareaVariants = tv({
   base: [
-    "aria-invalid:border-red-600 aria-invalid:ring-red-600/20 dark:aria-invalid:ring-red-600/40 field-sizing-content flex min-h-16 w-full rounded-md border border-neutral-200 bg-transparent px-3 py-2 text-base outline-none transition placeholder:text-neutral-500 focus-visible:border-neutral-950 focus-visible:ring-2 focus-visible:ring-neutral-950/50 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-neutral-800 dark:placeholder:text-neutral-400 dark:focus-visible:border-white dark:focus-visible:ring-white/50",
+    "aria-invalid:ring-red-600/20 aria-invalid:border-red-600 flex min-h-20 w-full min-w-0 rounded-md border border-neutral-200 bg-transparent px-3 py-1 text-base outline-none transition selection:bg-neutral-950 selection:text-white file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:border-neutral-950 focus-visible:ring-[3px] focus-visible:ring-neutral-950/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-neutral-800 dark:ring-white/15 dark:selection:text-neutral-950 dark:file:text-white dark:placeholder:text-neutral-400 dark:focus-visible:border-white dark:focus-visible:ring-white/50",
   ],
 });

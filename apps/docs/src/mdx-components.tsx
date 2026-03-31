@@ -6,8 +6,11 @@ import * as DynamicLink from "fumadocs-core/dynamic-link";
 import Link from "fumadocs-core/link";
 import { Heading } from "@/mdx/components/heading";
 
-import DemoButton from "@/components/core/button";
-import DemoSeparator from "@/components/core/separator";
+import Button from "@/registry/react/core/button";
+import Separator from "@/registry/react/core/separator";
+import Input from "@/registry/react/core/input";
+import Label from "@/registry/react/core/label";
+import Textarea from "@/registry/react/core/textarea";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
@@ -30,8 +33,11 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     h6: (props: HTMLAttributes<HTMLHeadingElement>) => (
       <Heading as="h6" {...props} />
     ),
-    DemoButton,
-    DemoSeparator,
+    Button,
+    Separator,
+    Input,
+    Label,
+    Textarea,
     ...TabsComponents,
     ...DynamicLink,
     Link,

@@ -1,15 +1,12 @@
 "use client";
 
 import * as React from "react";
-import {
-  Separator as SeparatorPrimitive,
-  type SeparatorProps as SeparatorPrimitiveProps,
-} from "react-aria-components";
-import { tv, VariantProps } from "tailwind-variants";
-import { twmx } from "twmx";
+import { Separator as SeparatorPrimitive } from "@base-ui/react/separator";
+import { cn, tv, VariantProps } from "tailwind-variants";
 
-type SeparatorVariants = VariantProps<typeof separatorVariants>;
-interface SeparatorProps extends SeparatorPrimitiveProps, SeparatorVariants {}
+interface SeparatorProps
+  extends SeparatorPrimitive.Props,
+    VariantProps<typeof separatorVariants> {}
 
 export default function Separator({
   orientation = "horizontal",
@@ -19,13 +16,13 @@ export default function Separator({
   return (
     <SeparatorPrimitive
       orientation={orientation}
-      className={twmx(separatorVariants({ orientation, className }))}
+      className={cn(separatorVariants({ orientation }), className)}
       {...props}
     />
   );
 }
 
-export const separatorVariants = tv({
+const separatorVariants = tv({
   base: "pointer-events-none shrink-0 bg-neutral-200 dark:bg-neutral-800",
   variants: {
     orientation: {

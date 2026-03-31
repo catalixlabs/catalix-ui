@@ -44,7 +44,6 @@ async function runInit(options: InitOptionsSchema) {
     await withSpinner("Verifying framework", async (spinner) => {
       const { framework } = projectInfo;
       const CWD = chalk.cyan(cwd);
-      await new Promise((resolve) => setTimeout(resolve, 500));
       if (!framework) throw new Error(`Couldn't find a framework at ${CWD}.`);
       spinner.text = `Verifying framework. Found ${chalk.cyan(framework)}.`;
       return framework;
@@ -52,7 +51,6 @@ async function runInit(options: InitOptionsSchema) {
 
     await withSpinner("Verifying src directory", async (spinner) => {
       const { isSrc } = await getProjectInfo(cwd);
-      await new Promise((resolve) => setTimeout(resolve, 500));
       spinner.text = `Verifying src directory ${chalk.cyan(isSrc)}.`;
       return isSrc;
     });
@@ -62,7 +60,6 @@ async function runInit(options: InitOptionsSchema) {
       const CWD = chalk.cyan(cwd);
       const REQ_VER = chalk.cyan("v4");
       const VER = chalk.cyan(tv);
-      await new Promise((resolve) => setTimeout(resolve, 500));
       if (!tv) throw new Error(`No Tailwind CSS config found at ${CWD}.`);
       if (tv === "v3") throw new Error(`Need tailwind ${REQ_VER}, got ${VER}.`);
       spinner.text = `Validating Tailwind CSS. Found ${chalk.cyan(REQ_VER)}.`;
@@ -71,7 +68,6 @@ async function runInit(options: InitOptionsSchema) {
     await withSpinner("Validating import alias.", async () => {
       const { alias } = projectInfo;
       const FILE = chalk.cyan("tsconfig.json");
-      await new Promise((resolve) => setTimeout(resolve, 500));
       if (!alias) throw new Error(`No import alias found in ${FILE}.`);
     });
 

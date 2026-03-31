@@ -11,7 +11,7 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
         <div className="border-grid flex h-full flex-1 flex-col">
           <Header />
           <div className="flex h-full flex-1 flex-col">
-            <div className="max-w-8xl border-border mx-auto w-full border-x border-dashed">
+            <div className="border-border mx-auto w-full max-w-7xl border-x border-dashed">
               <div className="flex h-full w-full flex-1 items-start px-4">
                 <Sidebar tree={source.pageTree} />
                 <main className="relative flex flex-1">{children}</main>

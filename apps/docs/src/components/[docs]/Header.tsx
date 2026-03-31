@@ -6,7 +6,7 @@ import { routes } from "@/const/routes";
 export default function Header() {
   return (
     <header className="border-border sticky top-0 z-50 w-full border-b border-dashed backdrop-blur-md">
-      <div className="max-w-8xl border-border mx-auto w-full border-x border-dashed">
+      <div className="border-border mx-auto w-full max-w-7xl border-x border-dashed">
         <div className="w-full px-4">
           <div className="flex h-full min-h-14 items-center justify-between">
             <Link

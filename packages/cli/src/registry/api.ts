@@ -2,7 +2,7 @@ import { ofetch } from "ofetch";
 import chalk from "chalk";
 import type { Registry, RegistryItem } from "@/types/registry";
 
-const REGISTRY_URL = process.env.REGISTRY_URL;
+const REGISTRY_URL = "https://catalix-ui.vercel.app/r";
 
 const cache = new Map<string, any>();
 

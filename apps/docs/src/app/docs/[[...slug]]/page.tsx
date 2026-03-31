@@ -20,7 +20,9 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
     <Fragment>
       <article className="mx-auto w-full min-w-0 max-w-2xl flex-1 py-6">
         <div className="mb-4 flex flex-col gap-4">
-          <h1 className="text-3xl font-semibold">{page.data.title}</h1>
+          <h1 className="text-3xl font-semibold text-white">
+            {page.data.title}
+          </h1>
           <p className="text-muted-foreground text-lg">
             {page.data.description}
           </p>

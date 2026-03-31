@@ -18,4 +18,4 @@ program
   .addCommand(build)
   .addCommand(add);
 
-await program.parseAsync();
+program.parse();

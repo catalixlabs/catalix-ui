@@ -1,4 +1,48 @@
 ---
 title: Label
-description: Accessible label built on Base UI. Label.
+description: Accessible label built on Base UI Label.
 ---
+
+## Installation
+
+```package-install
+npx @catalix/cli@latest add label
+```
+
+## Usage
+
+```tsx title="page.tsx" lineNumbers
+import Label from "@/components/core/label"; //[!code ++]
+import Input from "@/components/core/input";
+
+export default function Example() {
+  return (
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" placeholder="Email" />
+    </div>
+  );
+}
+```
+
+## Examples
+
+### Default
+
+<div className="flex w-full items-center justify-center rounded-xl border p-8">
+  <Label htmlFor="email-2">Your email address</Label>
+</div>
+
+### With Input
+
+<div className="flex w-full items-center justify-center rounded-xl border p-8">
+  <div className="grid w-full max-w-sm items-center gap-1.5">
+    <Label htmlFor="email-input">Email address</Label>
+    <Input type="email" id="email-input" placeholder="Email" />
+    <p className="text-sm text-neutral-500">Enter your email address.</p>
+  </div>
+</div>
+
+## API Reference
+
+The Label component accepts all standard HTML Label props.

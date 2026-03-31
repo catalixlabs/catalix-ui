@@ -12,8 +12,8 @@ export default function Components() {
 
   return (
     <section className="relative border-b border-dashed border-neutral-950/10 dark:border-white/10">
-      <div className="max-w-8xl mx-auto w-full border-x border-dashed border-neutral-950/10 dark:border-white/10">
-        <div className="max-w-8xl mx-auto w-full px-4">
+      <div className="mx-auto w-full max-w-7xl border-x border-dashed border-neutral-950/10 dark:border-white/10">
+        <div className="mx-auto w-full max-w-7xl px-4">
           <div className="relative py-24">
             <div className="mx-auto flex max-w-md flex-col items-center gap-4 pb-12 text-center">
               <h2 className="text-balance text-4xl tracking-tighter text-neutral-950 sm:text-5xl dark:text-white">
@@ -33,9 +33,9 @@ export default function Components() {
                   {r.map((_, i) => (
                     <div
                       key={i}
-                      className="border-border relative flex flex-col gap-2 border p-2"
+                      className="relative flex flex-col gap-2 border border-neutral-200 p-2"
                     >
-                      <div className="border-border bg-card min-h-56 border"></div>
+                      <div className="min-h-56 border border-neutral-200"></div>
                       <div className="relative">
                         <div className="flex flex-wrap items-center">
                           <h2 className="text-sm/6 font-medium">

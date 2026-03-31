@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "tailwind-scrollbar";
 @import "tw-animate-css";
-/* @plugin "tailwindcss-react-aria-components"; */
 @import "fumadocs-ui/css/preset.css";
 @import "fumadocs-ui/css/neutral.css";
 
@@ -107,8 +106,4 @@
   --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
   --tw-prose-invert-th-borders: var(--color-border);
   --tw-prose-invert-td-borders: var(--color-border);
-}
-
-.prose a {
-  text-decoration: none;
 }

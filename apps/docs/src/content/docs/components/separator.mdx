@@ -1,6 +1,65 @@
 ---
 title: Separator
-description: Visual separator built on Base UI. Separator.
+description: Visual separator built on Base UI Separator.
 ---
 
-<DemoSeparator />
+## Installation
+
+```package-install
+npx @catalix/cli@latest add separator
+```
+
+## Usage
+
+```tsx title="page.tsx" lineNumbers
+import Separator from "@/components/core/separator"; //[!code ++]
+
+export default function Example() {
+  return <Separator />; //[!code ++]
+}
+```
+
+## Examples
+
+### Horizontal
+
+The default orientation of the separator is horizontal.
+
+<div className="w-full rounded-xl border p-8">
+  <div className="flex flex-col gap-4">
+      <div className="text-sm my-0">
+        Catalix UI | An open-source UI component library.
+      </div>
+    <Separator />
+    <div className="flex h-5 items-center space-x-4 text-sm">
+      <div>Blog</div>
+      <Separator orientation="vertical" />
+      <div>Docs</div>
+      <Separator orientation="vertical" />
+      <div>Source</div>
+    </div>
+
+  </div>
+</div>
+
+### Vertical
+
+Use the `orientation` prop to set the separator to vertical.
+
+<div className="rounded-xl border p-8 text-sm">
+  <div className="flex h-5 items-center space-x-4 text-sm">
+    <div>Blog</div>
+    <Separator orientation="vertical" />
+    <div>Docs</div>
+    <Separator orientation="vertical" />
+    <div>Source</div>
+  </div>
+</div>
+
+## API Reference
+
+The Separator component accepts all standard Separator props from Base UI.
+
+| Prop        | Type                       | Default      | Description                       |
+| ----------- | -------------------------- | ------------ | --------------------------------- |
+| orientation | `horizontal` \| `vertical` | `horizontal` | The orientation of the separator. |

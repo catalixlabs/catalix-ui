@@ -1,18 +1,15 @@
 "use client";
 
 import * as React from "react";
-import * as LabelPrimitive from "@radix-ui/react-label";
-import { tv, type VariantProps } from "tailwind-variants";
-import { cn } from "@/registry/react/utils/cn";
+import { cn, tv, type VariantProps } from "tailwind-variants";
 
-export type LabelVariant = VariantProps<typeof labelVariants>;
-export interface InputProps
-  extends React.ComponentProps<typeof LabelPrimitive.Root>,
-    LabelVariant {}
+export interface LabelProps
+  extends React.ComponentProps<"label">,
+    VariantProps<typeof labelVariants> {}
 
-export default function Label({ className, ...props }: InputProps) {
+export default function Label({ className, ...props }: LabelProps) {
   return (
-    <LabelPrimitive.Root
+    <label
       data-slot="label"
       className={cn(labelVariants({ className }))}
       {...props}

@@ -6,7 +6,7 @@
     {
       "name": "button",
       "type": "registry:core",
-      "dependencies": ["tailwind-variants", "twmx"],
+      "dependencies": ["@base-ui/react", "tailwind-variants", "tailwind-merge"],
       "files": [
         {
           "path": "src/registry/react/core/button.tsx",
@@ -16,26 +16,9 @@
       ]
     },
     {
-      "name": "link",
-      "type": "registry:core",
-      "dependencies": [
-        "tailwind-merge",
-        "clsx",
-        "tailwind-variants",
-        "react-aria-components",
-        "twmx"
-      ],
-      "files": [
-        {
-          "path": "src/registry/react/core/link.tsx",
-          "type": "registry:core",
-          "target": "components/core/link.tsx"
-        }
-      ]
-    },
-    {
       "name": "input",
       "type": "registry:core",
+      "dependencies": ["@base-ui/react", "tailwind-variants", "tailwind-merge"],
       "files": [
         {
           "path": "src/registry/react/core/input.tsx",
@@ -47,24 +30,19 @@
     {
       "name": "separator",
       "type": "registry:core",
+      "dependencies": ["@base-ui/react", "tailwind-variants", "tailwind-merge"],
       "files": [
         {
           "path": "src/registry/react/core/separator.tsx",
           "type": "registry:core",
           "target": "components/core/separator.tsx"
         }
-      ],
-      "dependencies": [
-        "tailwind-merge",
-        "clsx",
-        "tailwind-variants",
-        "react-aria-components",
-        "twmx"
       ]
     },
     {
       "name": "textarea",
       "type": "registry:core",
+      "dependencies": ["@base-ui/react", "tailwind-variants", "tailwind-merge"],
       "files": [
         {
           "path": "src/registry/react/core/textarea.tsx",
@@ -76,14 +54,14 @@
     {
       "name": "label",
       "type": "registry:core",
+      "dependencies": ["tailwind-variants", "tailwind-merge"],
       "files": [
         {
           "path": "src/registry/react/core/label.tsx",
           "type": "registry:core",
           "target": "components/core/label.tsx"
         }
-      ],
-      "dependencies": ["@radix-ui/react-label"]
+      ]
     }
   ]
 }

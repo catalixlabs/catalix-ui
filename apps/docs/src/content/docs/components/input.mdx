@@ -2,3 +2,55 @@
 title: Input
 description: Text input with accessible styles.
 ---
+
+## Installation
+
+```package-install
+npx @catalix/cli@latest add input
+```
+
+## Usage
+
+```tsx title="page.tsx" lineNumbers
+import Input from "@/components/core/input"; //[!code ++]
+
+export default function Example() {
+  return <Input type="email" placeholder="Email" />; //[!code ++]
+}
+```
+
+## Examples
+
+### Default
+
+<div className="flex w-full items-center justify-center rounded-xl border p-8">
+  <Input type="email" placeholder="Email" className="max-w-sm" />
+</div>
+
+### Disabled
+
+<div className="flex w-full items-center justify-center rounded-xl border p-8">
+  <Input disabled type="email" placeholder="Email" className="max-w-sm" />
+</div>
+
+### With Label
+
+<div className="flex w-full items-center justify-center rounded-xl border p-8">
+  <div className="grid w-full max-w-sm items-center gap-1.5">
+    <Label htmlFor="email">Email</Label>
+    <Input type="email" id="email" placeholder="Email" />
+  </div>
+</div>
+
+### File
+
+<div className="flex w-full items-center justify-center rounded-xl border p-8">
+  <div className="grid w-full max-w-sm items-center gap-1.5">
+    <Label htmlFor="picture">Picture</Label>
+    <Input id="picture" type="file" />
+  </div>
+</div>
+
+## API Reference
+
+The Input component accepts all standard HTML input props.
